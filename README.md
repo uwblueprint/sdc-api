@@ -1,24 +1,22 @@
-# README
+# Social Development Centre
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Introduction
 
-Things you may want to cover:
+This is the web API portion of the Social Development Centre Project for [UW Blueprint](https://https://uwblueprint.org/).
 
-* Ruby version
+This project was started in Fall 2019 and is currently in development.
 
-* System dependencies
+**Project Lead:** Daniel Williams - [@ddgwilli](https://github.com/ddgwilli)
 
-* Configuration
+**Project Manager:** Leonard Zhang - [@leonardz](https://github.com/leonardz)
 
-* Database creation
+**Designers:** 
+* Annie Xu
+* Carmen Lee
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+**Developers:** 
+* Lee Ma - [@lee-ma](https://github.com/lee-ma)
+* Daniel Peng - [@danielpeng2](https://github.com/danielpeng2)
+* Ritika Rao
+* Megan Niu - [@meganniu](https://github.com/meganniu)
+* Jayant Shrivastava - [@jayshrivastava](https://github.com/jayshrivastava)
