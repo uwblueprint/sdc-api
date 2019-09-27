@@ -33,6 +33,14 @@ docker run -e POSTGRES_PASSWORD=uwblueprintsdc -p 5432:5432 -d postgres
 
 # init the database and sample data
 rake db:drop db:create db:migrate db:seed
+
+# list running docker containers (add -a to list all continers)
+docker ps
+
+# start/stop containers
+docker start <container id>
+docker stop <container id>
+
 ```
 
 **Connecting to the Development DB** 
