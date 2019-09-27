@@ -20,3 +20,14 @@ This project was started in Fall 2019 and is currently in development.
 * Ritika Rao
 * Megan Niu - [@meganniu](https://github.com/meganniu)
 * Jayant Shrivastava - [@jayshrivastava](https://github.com/jayshrivastava)
+
+## Set up
+
+#### Database
+
+```
+docker pull postgres
+docker run -e POSTGRES_PASSWORD=uwblueprintsdc -p 5432:5432 -d postgres
+rake db:create # create a database called sdc from rails
+rake db:migrate # seed the data in the db
+```
