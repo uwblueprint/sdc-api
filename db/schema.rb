@@ -15,11 +15,10 @@ ActiveRecord::Schema.define(version: 2019_09_26_234420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "charts", force: :cascade do |t|
-    t.string "chart_id"
+  create_table "questions", force: :cascade do |t|
+    t.decimal "chart_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["chart_id"], name: "index_charts_on_chart_id"
   end
 
 end

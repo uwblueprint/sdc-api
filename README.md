@@ -21,13 +21,28 @@ This project was started in Fall 2019 and is currently in development.
 * Megan Niu - [@meganniu](https://github.com/meganniu)
 * Jayant Shrivastava - [@jayshrivastava](https://github.com/jayshrivastava)
 
-## Set up
+## Development Setup
 
-#### Database
-
+**Development DB Setup:** 
 ```
+# pull the docker image
 docker pull postgres
+
+# run the docker container
 docker run -e POSTGRES_PASSWORD=uwblueprintsdc -p 5432:5432 -d postgres
-rake db:create # create a database called sdc from rails
-rake db:migrate # seed the data in the db
+
+# init the database and sample data
+rake db:drop db:create db:migrate db:seed
+```
+
+**Connecting to the Development DB** 
+```
+# connect to docker container
+psql -h localhost -U postgres -d postgres
+
+# go into the sdc database of the postgres server
+\c sdc
+
+# you can write any psql statements inside the sdc database 
+SELECT * FROM charts;
 ```
