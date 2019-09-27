@@ -17,6 +17,6 @@ This project was started in Fall 2019 and is currently in development.
 **Developers:** 
 * Lee Ma - [@lee-ma](https://github.com/lee-ma)
 * Daniel Peng - [@danielpeng2](https://github.com/danielpeng2)
-* Ritika Rao
+* Ritika Rao - [@ritikarao](https://github.com/ritikarao)
 * Megan Niu - [@meganniu](https://github.com/meganniu)
 * Jayant Shrivastava - [@jayshrivastava](https://github.com/jayshrivastava)
