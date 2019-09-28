@@ -2,12 +2,12 @@
 
 # DEVELOPMENT
 unless Rails.env.production?
-    ENV["DB_PASS"] = "sdcdev"
-    ENV["DB_USER"] = "postgres"
-    ENV["DB_NAME"] = "sdc"
-    ENV["DB_HOST"] = "localhost"
-    ENV["DB_PORT"] = "5432"
-    ENV["DB_TIMEOUT"] = "5000"
-    ENV["DB_ADAPTER"] = "postgresql"
-    ENV["DB_ENCODING"] = "utf8"
+    ENV["DB_PASS_DEV"] = "sdcdev"
+    ENV["DB_USER_DEV"] = "postgres"
+    ENV["DB_NAME_DEV"] = "sdc"
+    ENV["DB_HOST_DEV"] = "localhost"
+    ENV["DB_PORT_DEV"] = "5432"
+    ENV["DB_TIMEOUT_DEV"] = "5000"
+    ENV["DB_ADAPTER_DEV"] = "postgresql"
+    ENV["DB_ENCODING_DEV"] = "utf8"
 end
