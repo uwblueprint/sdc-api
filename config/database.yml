@@ -6,16 +6,15 @@
 #
 default: &default
   <<: *default
-  adapter: postgresql
+  adapter: <%= ENV.fetch("DB_ADAPTER") { 5 } %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: localhost
-  port: 5432
-  timeout: 5000
-  encoding: utf8
-  pool: 5
-  username: postgres
-  password: uwblueprintsdc
-  database: sdc
+  host: <%= ENV.fetch("DB_HOST") { 5 } %>
+  port: <%= ENV.fetch("DB_PORT") { 5 } %>
+  timeout: <%= ENV.fetch("DB_TIMEOUT") { 5 } %>
+  encoding: <%= ENV.fetch("DB_ENCODING") { 5 } %>
+  username: <%= ENV.fetch("DB_USER") { 5 } %>
+  password: <%= ENV.fetch("DB_PASS") { 5 } %>
+  database: <%= ENV.fetch("DB_NAME") { 5 } %>
 
 development:
   <<: *default
