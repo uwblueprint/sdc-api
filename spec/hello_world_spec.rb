@@ -4,7 +4,7 @@ end
 
 describe 'Greeting' do
   it 'returns message' do
-    message = greeting()
+    message = greeting
     expect(message).to eq('Hello world!')
   end
 end
