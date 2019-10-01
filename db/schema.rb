@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 2019_09_26_234420) do
   enable_extension "plpgsql"
 
   create_table "questions", force: :cascade do |t|
-    t.integer "chart_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
