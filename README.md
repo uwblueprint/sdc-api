@@ -20,3 +20,40 @@ This project was started in Fall 2019 and is currently in development.
 * Ritika Rao - [@ritikarao](https://github.com/ritikarao)
 * Megan Niu - [@meganniu](https://github.com/meganniu)
 * Jayant Shrivastava - [@jayshrivastava](https://github.com/jayshrivastava)
+
+## Development Setup
+
+**Development DB Setup:** 
+```
+# pull the docker image
+docker pull postgres
+
+# run the docker container
+docker run -e POSTGRES_PASSWORD=sdcdev -p 5432:5432 -d postgres
+
+# init the database and sample data
+rake db:drop db:create db:migrate db:seed
+
+# FYI: This is how to list running docker containers (add -a to list all continers).
+docker ps
+
+# FYI: This is how to start/stop containers. You should stop all your containers when you are not developing.
+docker start <container id>
+docker stop <container id>
+
+```
+
+**Connecting to the Development DB** 
+```
+# connect to docker container
+psql -h localhost -U postgres -d postgres
+
+# go into the sdc database of the postgres server
+\c sdc
+
+# you can write any psql statements inside the sdc database 
+SELECT * FROM questions;
+
+# you can also use psql commands like this one which lists a table's schema
+\d+ questions
+```
