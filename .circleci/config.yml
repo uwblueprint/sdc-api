@@ -5,10 +5,27 @@ workflows:
   heroku_deploy:
     jobs:
       - install
-      - deploy:
+      - test:
           requires:
             - install
-jobs:
+      - deploy:
+          requires:
+            - test
+  test:
+    jobs:
+      - install
+      - test:
+          requires:
+            -  install
+
+jobs:  
+  test:
+    steps:
+      - checkout
+      - run:
+          name: Test
+	  command: bundle exec rspec
+
   deploy:
     executor: heroku/default
     steps:
