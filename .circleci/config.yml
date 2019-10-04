@@ -9,7 +9,7 @@ jobs:
   deploy:
     executor: heroku/default
     steps:
-      - checkout
+      - build
       - heroku/install
       - heroku/deploy-via-git:
           only-branch: master
