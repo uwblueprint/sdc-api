@@ -4,10 +4,10 @@ orbs:
 workflows:
   heroku_deploy:
     jobs:
-      - build
+      - install
       - deploy:
           requires:
-            - build
+            - install
 jobs:
   deploy:
     executor: heroku/default
@@ -15,7 +15,7 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git:
           only-branch: master
-  build:
+  install:
     docker:
       - image: circleci/ruby:2.5.1
         environment:
