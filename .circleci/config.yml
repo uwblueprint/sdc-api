@@ -37,7 +37,7 @@ jobs:
 
   test:
     machine: 
-      image: ubuntu-1604:201903-01 
+      image: circleci/ruby:2.5.1
     steps:
       - checkout
       - run:
