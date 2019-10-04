@@ -24,7 +24,7 @@ jobs:
       - checkout
       - run:
           name: Test
-	  command: bundle exec rspec
+          command: bundle exec rspec
 
   deploy:
     executor: heroku/default
