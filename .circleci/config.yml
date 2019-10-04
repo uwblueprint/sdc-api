@@ -42,7 +42,11 @@ jobs:
       - checkout
       - run:
           name: Test
+<<<<<<< HEAD
 	        command: bundle exec rspec
+=======
+          command: bundle install rspec && bundle exec rspec
+>>>>>>> Install rpec with bundle install before running tests
 
   deploy:
     executor: heroku/default
