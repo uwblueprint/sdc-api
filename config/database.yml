@@ -6,15 +6,15 @@
 #
 default: &default
   <<: *default
-  adapter: <%= ENV.fetch("DB_ADAPTER_DEV") { 5 } %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS_DEV") { 5 } %>
-  host: <%= ENV.fetch("DB_HOST_DEV") { 5 } %>
-  port: <%= ENV.fetch("DB_PORT_DEV") { 5 } %>
-  timeout: <%= ENV.fetch("DB_TIMEOUT_DEV") { 5 } %>
-  encoding: <%= ENV.fetch("DB_ENCODING_DEV") { 5 } %>
-  username: <%= ENV.fetch("DB_USER_DEV") { 5 } %>
-  password: <%= ENV.fetch("DB_PASS_DEV") { 5 } %>
-  database: <%= ENV.fetch("DB_NAME_DEV") { 5 } %>
+  adapter: <%= ENV.fetch("DB_ADAPTER_DEV") %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS_DEV") %>
+  host: <%= ENV.fetch("DB_HOST_DEV") %>
+  port: <%= ENV.fetch("DB_PORT_DEV") %>
+  timeout: <%= ENV.fetch("DB_TIMEOUT_DEV") %>
+  encoding: <%= ENV.fetch("DB_ENCODING_DEV") %>
+  username: <%= ENV.fetch("DB_USER_DEV") %>
+  password: <%= ENV.fetch("DB_PASS_DEV") %>
+  database: <%= ENV.fetch("DB_NAME_DEV") %>
 
 development:
   <<: *default
@@ -25,5 +25,6 @@ development:
 test:
   <<: *default
 
+# Connection String Set by Heroku. If not set, the default is NULL { }
 production:
-  <<: *default
+  database: <%= ENV.fetch("DATABASE_URL") { } %>
