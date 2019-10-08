@@ -1,6 +1,4 @@
 version: 2.1
-orbs:
-  heroku: circleci/heroku@0.0.8
 workflows:
   deploy:
     jobs:
@@ -10,7 +8,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.5.1
         environment:
-          RAILS_ENV: test
+          RAILS_ENV: development
           PGHOST: 127.0.0.1
           PGUSER: root
     
@@ -25,19 +23,18 @@ jobs:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - rails-demo-{{ checksum "Gemfile.lock" }}
-            - rails-demo-
+            - sdc-api-{{ checksum "Gemfile.lock" }}
 
       # Bundle install dependencies
       - run:
           name: Install dependencies
-          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+          command: bundle install && bundle clean
 
-      - run: sudo apt install -y postgresql-client || true
+      # - run: sudo apt install -y postgresql-client
 
       # Store bundle cache
       - save_cache:
-          key: rails-demo-{{ checksum "Gemfile.lock" }}
+          key: sdc-api-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
