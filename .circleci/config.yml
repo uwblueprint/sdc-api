@@ -28,12 +28,35 @@ jobs:
           PGUSER: root
     steps:
       - checkout
+<<<<<<< HEAD
       - run:
           name: Install dependencies
           command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
       - run:
           name: Run Rubocop
           command: bundle exec rubocop
+=======
+      
+        #      - run:
+        # name: Clean bundle
+        # command: bundle clean
+      
+      # Restore bundle cache
+      #      - restore_cache:
+      #   keys:
+      #     - rails-demo-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      #     - rails-demo-{{ .Branch }}
+      #     - rails-demo
+     
+          # - run:
+          # name: Install dependencies
+          #command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+
+          #- save_cache:
+          # key: rails-demo-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          #paths:
+          # - vendor/bundle
+>>>>>>> Remove bundle clean from test job
 
   test:
     docker: 
