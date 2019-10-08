@@ -40,6 +40,13 @@ jobs:
       - image: circleci/ruby:2.5.1
     steps:
       - checkout
+      
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - rails-demo-{{ checksum "Gemfile.lock" }}
+            - rails-demo-
+      
       - run:
           name: Test
 	        command: bundle exec rspec
