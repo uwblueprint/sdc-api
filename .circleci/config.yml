@@ -41,11 +41,26 @@ jobs:
     steps:
       - checkout
       
+      - run:
+          name: Clean bundle
+          command: bundle clean
+      
       # Restore bundle cache
       - restore_cache:
           keys:
-            - rails-demo-{{ checksum "Gemfile.lock" }}
+            - rails-demo-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - rails-demo-{{ .Branch }}
+            - rails-demo
       
+      - run:
+          name: Install dependencies
+          command: (bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3) && bundle clean
+
+      - save_cache:
+          key: rails-demo-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
       - run:
           name: Test
 	        command: bundle exec rspec
