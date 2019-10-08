@@ -1,4 +1,4 @@
-# Social Development Centre
+# Social Development Centre [![CircleCI](https://circleci.com/gh/uwblueprint/sdc-api/tree/master.svg?style=shield)](https://circleci.com/gh/uwblueprint/sdc-api/tree/master)
 
 ## Introduction
 
@@ -22,6 +22,10 @@ This project was started in Fall 2019 and is currently in development.
 * Jayant Shrivastava - [@jayshrivastava](https://github.com/jayshrivastava)
 
 ## Development Setup
+
+**Installing Docker:** 
+
+Please refer to the offical docs at https://docs.docker.com/install/
 
 **Development DB Setup:** 
 ```
@@ -56,4 +60,13 @@ SELECT * FROM questions;
 
 # you can also use psql commands like this one which lists a table's schema
 \d+ questions
+```
+
+## Troubleshooting
+**(Windows) Bundle Install Fails Due to pg?**
+Try the following:
+```
+sudo apt-get install libpq-dev
+gem install pg  --   --with-pg-lib=/usr/lib
+bundle install
 ```

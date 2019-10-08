@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.8
 workflows:
-  heroku_deploy:
+  deploy:
     jobs:
       - install
       - test:
@@ -29,6 +29,7 @@ jobs:
       - heroku/install
       - heroku/deploy-via-git:
           only-branch: master
+          
   install:
     docker:
       - image: circleci/ruby:2.5.1
