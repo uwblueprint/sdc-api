@@ -11,12 +11,6 @@ workflows:
       - deploy:
           requires:
             - test
-  test:
-    jobs:
-      - install
-      - test:
-          requires:
-            -  install
 
 jobs:  
   test:
