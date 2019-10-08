@@ -44,12 +44,6 @@ jobs:
           name: Test
 	        command: bundle exec rspec
 
-  deploy:
-    executor: heroku/default
-    steps:
-      - heroku/install
-      - heroku/deploy-via-git:
-          only-branch: master
   install:
     docker:
       - image: circleci/ruby:2.5.1
