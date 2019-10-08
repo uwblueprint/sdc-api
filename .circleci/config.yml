@@ -19,9 +19,9 @@ jobs:
     steps:
       - checkout
       
-      - run:
-          name: Clean bundle
-          command: bundle clean
+        #      - run:
+        # name: Clean bundle
+        # command: bundle clean
       
       # Restore bundle cache
       #      - restore_cache:
