@@ -45,7 +45,6 @@ jobs:
       - restore_cache:
           keys:
             - rails-demo-{{ checksum "Gemfile.lock" }}
-            - rails-demo-
       
       - run:
           name: Test
