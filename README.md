@@ -1,4 +1,4 @@
-# Social Development Centre
+# Social Development Centre [![CircleCI](https://circleci.com/gh/uwblueprint/sdc-api/tree/master.svg?style=shield)](https://circleci.com/gh/uwblueprint/sdc-api/tree/master)
 
 ## Introduction
 
