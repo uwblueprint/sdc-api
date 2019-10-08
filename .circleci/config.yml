@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   heroku: circleci/heroku@0.0.8
 workflows:
-  heroku_deploy:
+  deploy:
     jobs:
       - install
       - test:
