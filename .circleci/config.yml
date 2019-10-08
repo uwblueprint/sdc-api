@@ -5,22 +5,17 @@ workflows:
   deploy:
     jobs:
       - install
-<<<<<<< HEAD
       - lint:
           requires:
             - install
-=======
->>>>>>> ce59da6f7c6407ef8dfb1b99dd651ed231338db7
       - test:
           requires:
             - install
       - deploy:
           requires:
-<<<<<<< HEAD
             - lint
             - install
             - test
-
 
 jobs:
   lint:
@@ -39,26 +34,15 @@ jobs:
           name: Run Rubocop
           command: bundle exec rubocop
 
-=======
-            - test
-
-jobs:  
->>>>>>> ce59da6f7c6407ef8dfb1b99dd651ed231338db7
   test:
     docker: 
       - image: circleci/ruby:2.5.1
     steps:
       - checkout
-<<<<<<< HEAD
-      - run:
-          name: Test
-	        command: bundle exec rspec
-=======
       
       - run:
           name: Test
           command: bundle install && bundle exec rspec
->>>>>>> ce59da6f7c6407ef8dfb1b99dd651ed231338db7
 
   deploy:
       executor: heroku/default
