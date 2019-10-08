@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+if Rails.env.production?
+  abort('The Rails environment is running in production mode!')
+end
 require 'rspec/rails'
 require 'database_cleaner'
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -32,7 +36,6 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
-
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -44,7 +47,7 @@ RSpec.configure do |config|
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
-  config.before(:each, :js => true) do
+  config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
   end
   config.before(:each) do

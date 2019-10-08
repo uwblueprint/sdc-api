@@ -5,12 +5,40 @@ workflows:
   deploy:
     jobs:
       - install
+      - lint:
+          requires:
+            - install
+      - deploy:
+          requires:
+            - lint
+            - install
 jobs:
+  lint:
+    docker:
+      - image: circleci/ruby:2.5.1
+        environment:
+          RAILS_ENV: development
+          PGHOST: 127.0.0.1
+          PGUSER: root
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
+      - run:
+          name: Run Rubocop
+          command: bundle exec rubocop
+  deploy:
+    executor: heroku/default
+    steps:
+      - heroku/install
+      - heroku/deploy-via-git:
+          only-branch: master
   install:
     docker:
       - image: circleci/ruby:2.5.1
         environment:
-          RAILS_ENV: test
+          RAILS_ENV: development
           PGHOST: 127.0.0.1
           PGUSER: root
     
