@@ -24,24 +24,24 @@ jobs:
           command: bundle clean
       
       # Restore bundle cache
-      - restore_cache:
-          keys:
-            - rails-demo-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - rails-demo-{{ .Branch }}
-            - rails-demo
-      
-      - run:
-          name: Install dependencies
-          command: (bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3) && bundle clean
+      #      - restore_cache:
+      #   keys:
+      #     - rails-demo-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      #     - rails-demo-{{ .Branch }}
+      #     - rails-demo
+     
+          # - run:
+          # name: Install dependencies
+          #command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
 
-      - save_cache:
-          key: rails-demo-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
+          #- save_cache:
+          # key: rails-demo-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          #paths:
+          # - vendor/bundle
 
       - run:
           name: Test
-          command: bundle exec rspec
+          command: bundle install && bundle exec rspec
 
   deploy:
     executor: heroku/default
