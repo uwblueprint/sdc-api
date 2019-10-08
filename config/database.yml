@@ -6,15 +6,15 @@
 #
 default: &default
   <<: *default
-  adapter: <%= ENV.fetch("DB_ADAPTER_DEV") %>
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS_DEV") %>
-  host: <%= ENV.fetch("DB_HOST_DEV") %>
-  port: <%= ENV.fetch("DB_PORT_DEV") %>
-  timeout: <%= ENV.fetch("DB_TIMEOUT_DEV") %>
-  encoding: <%= ENV.fetch("DB_ENCODING_DEV") %>
-  username: <%= ENV.fetch("DB_USER_DEV") %>
-  password: <%= ENV.fetch("DB_PASS_DEV") %>
-  database: <%= ENV.fetch("DB_NAME_DEV") %>
+  adapter: <%= ENV.fetch("DB_ADAPTER_DEV") { } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS_DEV") { } %>
+  host: <%= ENV.fetch("DB_HOST_DEV") { } %>
+  port: <%= ENV.fetch("DB_PORT_DEV") { } %>
+  timeout: <%= ENV.fetch("DB_TIMEOUT_DEV") { } %>
+  encoding: <%= ENV.fetch("DB_ENCODING_DEV") { } %>
+  username: <%= ENV.fetch("DB_USER_DEV") { } %>
+  password: <%= ENV.fetch("DB_PASS_DEV") { } %>
+  database: <%= ENV.fetch("DB_NAME_DEV") { } %>
 
 development:
   <<: *default
