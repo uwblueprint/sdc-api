@@ -23,6 +23,10 @@ This project was started in Fall 2019 and is currently in development.
 
 ## Development Setup
 
+**Installing Docker:** 
+
+Please refer to the offical docs at https://docs.docker.com/install/
+
 **Development DB Setup:** 
 ```
 # pull the docker image
@@ -56,4 +60,13 @@ SELECT * FROM questions;
 
 # you can also use psql commands like this one which lists a table's schema
 \d+ questions
+```
+
+## Troubleshooting
+**(Windows) Bundle Install Fails Due to pg?**
+Try the following:
+```
+sudo apt-get install libpq-dev
+gem install pg  --   --with-pg-lib=/usr/lib
+bundle install
 ```
