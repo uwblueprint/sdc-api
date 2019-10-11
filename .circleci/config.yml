@@ -10,7 +10,7 @@ workflows:
             - install
       - test:
           requires:
-            -install
+            - install
       - deploy:
           requires:
             - lint
