@@ -8,9 +8,13 @@ workflows:
       - lint:
           requires:
             - install
+      - test:
+          requires:
+            -install
       - deploy:
           requires:
             - lint
+            - test
             - install
 jobs:
   lint:
@@ -28,6 +32,14 @@ jobs:
       - run:
           name: Run Rubocop
           command: bundle exec rubocop
+  test:
+    docker: 
+      - image: circleci/ruby:2.5.1
+    steps:
+      - checkout
+      - run:
+          name: Test
+          command: bundle install && bundle exec rspec
   deploy:
     executor: heroku/default
     steps:
