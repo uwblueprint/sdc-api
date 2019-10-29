@@ -16,23 +16,21 @@ ActiveRecord::Schema.define(version: 2019_10_20_015021) do
   enable_extension "plpgsql"
 
   create_table "edges", force: :cascade do |t|
-    t.bigint "question_id"
-    t.bigint "child_id"
-    t.bigint "sibling_id"
-    t.index ["child_id"], name: "index_edges_on_child_id"
+    t.bigint "question_id", null: false
+    t.bigint "next_question_id", null: false
+    t.boolean "is_child", null: false
+    t.index ["next_question_id"], name: "index_edges_on_next_question_id"
     t.index ["question_id"], name: "index_edges_on_question_id"
-    t.index ["sibling_id"], name: "index_edges_on_sibling_id"
   end
 
   create_table "questions", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "question"
-    t.string "options", default: [], array: true
-    t.boolean "is_root"
+    t.string "question", null: false
+    t.string "options", default: [], null: false, array: true
+    t.boolean "is_root", null: false
   end
- 
+
   add_foreign_key "edges", "questions"
-  add_foreign_key "edges", "questions", column: "child_id"
-  add_foreign_key "edges", "questions", column: "sibling_id"
+  add_foreign_key "edges", "questions", column: "next_question_id"
 end
