@@ -1,0 +1,2 @@
+class Flowchart < ApplicationRecord
+end
