@@ -1,6 +1,7 @@
 AllCops:
     Exclude:
       - 'db/schema.rb'
+      - vendor/bundle/**/*
 
 Metrics:
   Enabled: false
