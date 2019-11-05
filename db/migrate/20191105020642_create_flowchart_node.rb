@@ -7,10 +7,10 @@ class CreateFlowchartNode < ActiveRecord::Migration[6.0]
       t.string :header, null: false
       t.string :button_text
       t.string :next_question
-      t.references :child_id, foreign_key: { to_table: :flowchart_nodes }
-      t.references :sibling_id, foreign_key: { to_table: :flowchart_nodes }
+      t.references :child, foreign_key: { to_table: :flowchart_nodes }
+      t.references :sibling, foreign_key: { to_table: :flowchart_nodes }
       t.boolean :is_root, null: false
-      t.references :flowchart_id, foreign_key: { to_table: :flowcharts }, null: false
+      t.references :flowchart, foreign_key: { to_table: :flowcharts }, null: false
       t.timestamps
     end
   end
