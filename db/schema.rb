@@ -15,6 +15,37 @@ ActiveRecord::Schema.define(version: 2019_11_08_003351) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "flowchart_nodes", force: :cascade do |t|
+    t.string "text", null: false
+    t.string "header", null: false
+    t.string "button_text"
+    t.string "next_question"
+    t.bigint "child_id"
+    t.bigint "sibling_id"
+    t.boolean "is_root", null: false
+    t.bigint "flowchart_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["child_id"], name: "index_flowchart_nodes_on_child_id"
+    t.index ["flowchart_id"], name: "index_flowchart_nodes_on_flowchart_id"
+    t.index ["sibling_id"], name: "index_flowchart_nodes_on_sibling_id"
+  end
+
+  create_table "flowcharts", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description", null: false
+    t.integer "height", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "root_id"
+    t.index ["root_id"], name: "index_flowcharts_on_root_id"
+  end
+
+  add_foreign_key "flowchart_nodes", "flowchart_nodes", column: "child_id"
+  add_foreign_key "flowchart_nodes", "flowchart_nodes", column: "sibling_id"
+  add_foreign_key "flowchart_nodes", "flowcharts"
+  add_foreign_key "flowcharts", "flowchart_nodes", column: "root_id"
+
   create_table "questions", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -27,5 +58,4 @@ ActiveRecord::Schema.define(version: 2019_11_08_003351) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
-
 end

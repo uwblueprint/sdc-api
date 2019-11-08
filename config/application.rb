@@ -41,8 +41,8 @@ module SdcApi
         resource(
           '*',
           headers: :any,
-          expose: ["Authorization"],
-          methods: [:get, :put, :delete, :post, :show]
+          expose: ['Authorization'],
+          methods: %i[get put delete post show]
         )
       end
     end
