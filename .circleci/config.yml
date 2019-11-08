@@ -21,7 +21,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.5.1
         environment:
-          RAILS_ENV: development
+          RAILS_ENV: test
           PGHOST: 127.0.0.1
           PGUSER: root
     steps:
@@ -50,7 +50,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.5.1
         environment:
-          RAILS_ENV: development
+          RAILS_ENV: test
           PGHOST: 127.0.0.1
           PGUSER: root
     
@@ -84,5 +84,5 @@ jobs:
       - run:
           name: Database Setup
           command: |
-            bundle exec rake db:create
+            bundle exec rake db:create RAILS_ENV=test
             bundle exec rake db:migrate RAILS_ENV=test
