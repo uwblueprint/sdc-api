@@ -35,15 +35,12 @@ jobs:
   test:
     docker: 
       - image: circleci/ruby:2.5.1
+        environment:
+          RAILS_ENV: test
+          PGHOST: 127.0.0.1
+          PGUSER: root
     steps:
       - checkout
-      - run:
-          name: Database Setup
-          command: |
-            bundle install
-            bundle exec rake db:drop
-            bundle exec rake db:create RAILS_ENV=test
-            bundle exec rake db:migrate RAILS_ENV=test
       - run:
           name: Test
           command: bundle install && bundle exec rspec
