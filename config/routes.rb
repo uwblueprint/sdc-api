@@ -2,5 +2,5 @@
 
 Rails.application.routes.draw do
   get '/questions', to: 'questions#index'
-  get '/flowcharts/:id', to: 'flowchart#get_serialized_flowchart_by_id'
+  get '/flowcharts/:id', to: 'flowchart#serialized_flowchart_by_id'
 end
