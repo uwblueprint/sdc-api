@@ -1,8 +1,29 @@
 # frozen_string_literal: true
 
 class FlowchartController < ApplicationController
+  # TODO: Add Error Checking for invalid inputs or missing data in the database (eg. no flowchart with that id)
+
+  def create
+    @flowchart = Flowchart.create(JSON.parse(request.body.read))
+    render json: @flowchart
+  end
+
+  def update
+    @flowchart = Flowchart.update(params[:id], JSON.parse(request.body.read))
+    render json: @flowchart
+  end
+
+  def delete
+    @flowchart = Flowchart.find(params[:id])
+    Flowchart.find(params[:id]).destroy
+    render json: @flowchart
+  end
+
+  def all_flowcharts
+    render json: Flowchart.all
+  end
+
   def serialized_flowchart_by_id
-    # TODO: Add Error Checking for invalid inputs or missing data in the database (eg. no flowchart with that id)
     flowchartnodes = FlowchartNode.where(flowchart_id: params[:id])
     flowchart = Flowchart.find(params[:id])
     root_node = FlowchartNode.get_root_node(params[:id])
