@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   get '/flowcharts', to: 'flowchart#all_flowcharts'
   post '/flowchart', to: 'flowchart#create'
   put '/flowchart/:id', to: 'flowchart#update'
-  delete '/flowchart', to: 'flowchart#delete'
+  delete '/flowchart/:id', to: 'flowchart#delete'
 end
