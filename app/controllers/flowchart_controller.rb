@@ -15,7 +15,7 @@ class FlowchartController < ApplicationController
 
   def delete
     @flowchart = Flowchart.find(params[:id])
-    Flowchart.find(params[:id]).update(deleted:true)
+    Flowchart.find(params[:id]).update(deleted: true)
     FlowchartNode.where(flowchart_id: params[:id]).update_all(deleted: true)
     @flowchart[:deleted] = true
     render json: @flowchart
