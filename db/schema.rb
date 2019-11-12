@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_11_12_021705) do
     t.bigint "flowchart_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "deleted", null: false
+    t.boolean "deleted", default: false, null: false
     t.index ["child_id"], name: "index_flowchart_nodes_on_child_id"
     t.index ["flowchart_id"], name: "index_flowchart_nodes_on_flowchart_id"
     t.index ["sibling_id"], name: "index_flowchart_nodes_on_sibling_id"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2019_11_12_021705) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "root_id"
-    t.boolean "deleted", null: false
+    t.boolean "deleted", default: false, null: false
     t.index ["root_id"], name: "index_flowcharts_on_root_id"
   end
 
