@@ -15,7 +15,9 @@ class FlowchartController < ApplicationController
 
   def delete
     @flowchart = Flowchart.find(params[:id])
-    Flowchart.find(params[:id]).destroy
+    Flowchart.find(params[:id]).update(deleted:true)
+    FlowchartNode.where(flowchart_id: params[:id]).update_all(deleted: true)
+    @flowchart[:deleted] = true
     render json: @flowchart
   end
 
@@ -24,8 +26,8 @@ class FlowchartController < ApplicationController
   end
 
   def serialized_flowchart_by_id
-    flowchartnodes = FlowchartNode.where(flowchart_id: params[:id])
-    flowchart = Flowchart.find(params[:id])
+    flowchartnodes = FlowchartNode.where(flowchart_id: params[:id], deleted: false)
+    flowchart = Flowchart.find_by(id: params[:id], deleted: false)
     root_node = FlowchartNode.get_root_node(params[:id])
 
     nodes_indexed_by_id = {}

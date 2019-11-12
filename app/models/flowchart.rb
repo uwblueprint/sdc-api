@@ -2,7 +2,7 @@
 
 class Flowchart < ApplicationRecord
   def self.calculate_and_set_max_height(flowchart_id)
-    flowchartnodes = FlowchartNode.where(flowchart_id: flowchart_id)
+    flowchartnodes = FlowchartNode.where(flowchart_id: flowchart_id, deleted: false)
     nodes_indexed_by_id = {}
     root_node = FlowchartNode.get_root_node(flowchart_id)
 
