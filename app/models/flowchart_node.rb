@@ -2,6 +2,6 @@
 
 class FlowchartNode < ApplicationRecord
   def self.get_root_node(flowchart_id)
-    FlowchartNode.find_by(flowchart_id: flowchart_id, is_root: true, deleted: false)
+    self.find_by(flowchart_id: flowchart_id, is_root: true, deleted: false)
   end
 end
