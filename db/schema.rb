@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2019_11_05_165127) do
     t.bigint "child_id"
     t.bigint "sibling_id"
     t.boolean "is_root", null: false
+    t.boolean "deleted", null: false
     t.bigint "flowchart_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 2019_11_05_165127) do
     t.string "title", null: false
     t.string "description", null: false
     t.integer "height", null: false
+    t.boolean "deleted", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "root_id"

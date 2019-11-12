@@ -6,6 +6,7 @@ class CreateFlowcharts < ActiveRecord::Migration[6.0]
       t.string :title, null: false
       t.string :description, null: false
       t.integer :height, null: false
+      t.boolean :deleted, null: false
       t.timestamps
     end
   end
