@@ -5,6 +5,10 @@ class Flowchart < ApplicationRecord
     flowchartnodes = FlowchartNode.where(flowchart_id: id, deleted: false)
     nodes_indexed_by_id = {}
     root_node = FlowchartNode.get_root_node(id)
+    if root_node.nil?
+      update(height: 0)
+      return
+    end
 
     flowchartnodes.each do |node|
       nodes_indexed_by_id[node.id] = node
