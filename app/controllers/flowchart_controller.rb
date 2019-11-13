@@ -5,33 +5,33 @@ class FlowchartController < ApplicationController
 
   def create
     begin
-        @flowchart = Flowchart.create(JSON.parse(request.body.read))
-    rescue
-        render status: 400, json: { error: "Could not create flowchart." }
-        return
+      @flowchart = Flowchart.create(JSON.parse(request.body.read))
+    rescue StandardError
+      render status: 400, json: { error: 'Could not create flowchart.' }
+      return
     end
     render json: @flowchart
   end
 
   def update
     begin
-        @flowchart = Flowchart.update(params[:id], JSON.parse(request.body.read))
-    rescue
-        render status: 400, json: { error: "Invalid Update." }
-        return
+      @flowchart = Flowchart.update(params[:id], JSON.parse(request.body.read))
+    rescue StandardError
+      render status: 400, json: { error: 'Invalid Update.' }
+      return
     end
     render json: @flowchart
   end
 
   def delete
-    begin 
-        @flowchart = Flowchart.find(params[:id])
-        Flowchart.find(params[:id]).update(deleted: true)
-        FlowchartNode.where(flowchart_id: params[:id]).update_all(deleted: true)
-        @flowchart[:deleted] = true
-    rescue
-        render status: 400, json: { error: "Could not delete flowchart." }
-        return
+    begin
+      @flowchart = Flowchart.find(params[:id])
+      Flowchart.find(params[:id]).update(deleted: true)
+      FlowchartNode.where(flowchart_id: params[:id]).update_all(deleted: true)
+      @flowchart[:deleted] = true
+    rescue StandardError
+      render status: 400, json: { error: 'Could not delete flowchart.' }
+      return
     end
     render json: @flowchart
   end
