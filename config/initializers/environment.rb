@@ -14,4 +14,5 @@ unless Rails.env.production?
   ENV['DB_ENCODING_DEV'] = 'utf8'
   ENV['RAILS_MAX_THREADS_DEV'] = '5'
   ENV['CORS_ORIGIN'] = 'http://localhost:3000'
+  ENV['DB_NAME_TEST'] = 'sdc_test'
 end
