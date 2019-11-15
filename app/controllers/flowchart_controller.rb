@@ -5,16 +5,15 @@ class FlowchartController < ApplicationController
 
   def create
     @flowchart = Flowchart.create(JSON.parse(request.body.read))
-    flowchartnode = FlowchartNode.create(flowchart_id: @flowchart.id, text: "New Node", header: "Options", is_root: true, deleted: false);
+    FlowchartNode.create(flowchart_id: @flowchart.id, text: 'New Node', header: 'Options', is_root: true, deleted: false)
 
     render json: @flowchart
   end
 
   def update
-
     flowchart = Flowchart.find(params[:id])
-    if flowchart == nil
-        render status: 404, json: { error: 'Could not find flowchart' }
+    if flowchart.nil?
+      render status: 404, json: { error: 'Could not find flowchart' }
     end
 
     @flowchart = Flowchart.update(params[:id], JSON.parse(request.body.read))
@@ -23,8 +22,8 @@ class FlowchartController < ApplicationController
 
   def delete
     @flowchart = Flowchart.find(params[:id])
-    if flowchart == nil
-        render status: 404, json: { error: 'Could not find flowchart' }
+    if flowchart.nil?
+      render status: 404, json: { error: 'Could not find flowchart' }
     end
 
     Flowchart.find(params[:id]).update(deleted: true)
