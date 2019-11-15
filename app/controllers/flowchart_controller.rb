@@ -4,35 +4,33 @@ class FlowchartController < ApplicationController
   # TODO: Add Error Checking for invalid inputs or missing data in the database (eg. no flowchart with that id)
 
   def create
-    begin
-      @flowchart = Flowchart.create(JSON.parse(request.body.read))
-    rescue StandardError
-      render status: 400, json: { error: 'Could not create flowchart.' }
-      return
-    end
+    @flowchart = Flowchart.create(JSON.parse(request.body.read))
+    flowchartnode = FlowchartNode.create(flowchart_id: @flowchart.id, text: "New Node", header: "Options", is_root: true, deleted: false);
+
     render json: @flowchart
   end
 
   def update
-    begin
-      @flowchart = Flowchart.update(params[:id], JSON.parse(request.body.read))
-    rescue StandardError
-      render status: 400, json: { error: 'Invalid Update.' }
-      return
+
+    flowchart = Flowchart.find(params[:id])
+    if flowchart == nil
+        render status: 404, json: { error: 'Could not find flowchart' }
     end
+
+    @flowchart = Flowchart.update(params[:id], JSON.parse(request.body.read))
     render json: @flowchart
   end
 
   def delete
-    begin
-      @flowchart = Flowchart.find(params[:id])
-      Flowchart.find(params[:id]).update(deleted: true)
-      FlowchartNode.where(flowchart_id: params[:id]).update_all(deleted: true)
-      @flowchart[:deleted] = true
-    rescue StandardError
-      render status: 400, json: { error: 'Could not delete flowchart.' }
-      return
+    @flowchart = Flowchart.find(params[:id])
+    if flowchart == nil
+        render status: 404, json: { error: 'Could not find flowchart' }
     end
+
+    Flowchart.find(params[:id]).update(deleted: true)
+    FlowchartNode.where(flowchart_id: params[:id]).update_all(deleted: true)
+    @flowchart[:deleted] = true
+
     render json: @flowchart
   end
 
