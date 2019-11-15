@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  devise_for :users
   get '/questions', to: 'questions#index'
   get '/flowchart/:id', to: 'flowchart#serialized_flowchart_by_id'
   get '/flowcharts', to: 'flowchart#all_flowcharts'

@@ -45,6 +45,12 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  # config.active_record.maintain_test_schema is a boolean value which
+  # controls whether Active Record should try to keep your test database
+  # schema up-to-date with db/schema.rb (or db/structure.sql) when you
+  # run your tests.
+  config.active_record.maintain_test_schema = true
+
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 end
