@@ -1,6 +1,4 @@
 version: 2.1
-orbs:
-  heroku: circleci/heroku@0.0.8
 workflows:
   deploy:
     jobs:
@@ -10,11 +8,6 @@ workflows:
             - install
       - test:
           requires:
-            - install
-      - deploy:
-          requires:
-            - lint
-            - test
             - install
 jobs:
   lint:
@@ -53,12 +46,6 @@ jobs:
             bundle exec rake db:create RAILS_ENV=test
             bundle exec rake db:migrate RAILS_ENV=test
             bundle exec rspec
-  deploy:
-    executor: heroku/default
-    steps:
-      - heroku/install
-      - heroku/deploy-via-git:
-          only-branch: master
   install:
     docker:
       - image: circleci/ruby:2.5.1
