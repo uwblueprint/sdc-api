@@ -13,4 +13,5 @@ unless Rails.env.production?
   ENV['DB_ADAPTER_DEV'] = 'postgresql'
   ENV['DB_ENCODING_DEV'] = 'utf8'
   ENV['RAILS_MAX_THREADS_DEV'] = '5'
+  ENV['CORS_ORIGIN'] = 'http://localhost:3000'
 end
