@@ -1,10 +1,15 @@
 # frozen_string_literal: true
 
 class FlowchartNodeController < ApplicationController
+  def create
+    parent_id = params[:id]
+  end
+
   def show
     id = params[:id]
-    node = FlowchartNode.find_by(id: id)
-    if !node
+    begin
+      node = FlowchartNode.find(id)
+    rescue ActiveRecord::RecordNotFound
       render status: 404, json: { error: "No node found with id #{id}." }
     else
       render json: node.as_json
@@ -13,16 +18,18 @@ class FlowchartNodeController < ApplicationController
 
   def update
     id = params[:id]
-    node = FlowchartNode.find_by(id: id)
-    if !node
+    begin
+      flowchart_node = FlowchartNode.update(
+        id, 
+        :text => params[:text],
+        :header => params[:header],
+        :button_text => params[:button_text],
+        :next_question => params[:next_question]
+      )
+    rescue StandardError
       render status: 404, json: { error: "No node found with id #{id}." }
     else
-      node[:text] = params[:text]
-      node[:header] = params[:header]
-      node[:button_text] = params[:button_text]
-      node[:next_question] = params[:next_question]
-      node.save!
-      render status: 200, json: node.as_json
+      render json: flowchart_node.as_json
     end
   end
 
