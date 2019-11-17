@@ -1,6 +1,37 @@
 # frozen_string_literal: true
 
 class FlowchartNodeController < ApplicationController
+  def create
+    prev_id = params[:prev_id]
+    is_child = params[:is_child]
+    begin
+      prev_node = FlowchartNode.find(prev_id)
+    rescue ActiveRecord::RecordNotFound
+      render status: 404, json: { error: "No node found with id #{prev_id}." }
+    else
+      ActiveRecord::Base.transaction do
+        @new_node = FlowchartNode.create(
+          text: params[:text],
+          header: params[:header],
+          button_text: params[:button_text],
+          next_question: params[:next_question],
+          is_root: false,
+          flowchart_id: prev_node.flowchart_id,
+        )
+        if is_child
+          @new_node.child_id = prev_node.child_id
+          prev_node.child_id = @new_node.id
+        else
+          @new_node.sibling_id = prev_node.sibling_id
+          prev_node.sibling_id = @new_node.id
+        end
+        @new_node.save!
+        prev_node.save!
+      end
+      render json: @new_node.as_json
+    end
+  end
+
   def show
     id = params[:id]
     begin
