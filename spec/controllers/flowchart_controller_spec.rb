@@ -64,9 +64,9 @@ RSpec.describe FlowchartController, type: :controller do
           'height': 3,
           'deleted': false
         }
-        @params = {
-            'id': 1
-        }
+      @params = {
+        'id': 1
+      }
     end
 
     it 'renders updated flowchart' do
@@ -88,10 +88,10 @@ RSpec.describe FlowchartController, type: :controller do
 
   describe '.delete' do
     before(:each) do
-        Flowchart.create(id: 3, title: 'tmp', description: 'to be deleted', height: 0, deleted: false)
-        @params = {
-            'id': 3
-        }
+      Flowchart.create(id: 3, title: 'tmp', description: 'to be deleted', height: 0, deleted: false)
+      @params = {
+        'id': 3
+      }
     end
 
     it 'renders deleted flowchart' do
@@ -122,178 +122,176 @@ RSpec.describe FlowchartController, type: :controller do
 
   describe '.get serialized' do
     before(:each) do
-        @params = {
-            'id': 1
-        }
+      @params = {
+        'id': 1
+      }
     end
 
     it 'renders all flowcharts' do
-        expected = {
-            'flowchart': {
-                'id': 1,
-                'title': 'chart 1',
-                'description': 'this chart is about abc',
-                'height': 0,
-                'root_id': 1,
-                'deleted': false
-            },
-            'flowchartnodes': {
-                '1': {
-                    'id': 1,
-                    'text': 'New Node',
-                    'header': 'Options',
-                    'button_text': nil,
-                    'next_question': nil,
-                    'child_id': 9,
-                    'sibling_id': nil,
-                    'is_root': true,
-                    'flowchart_id': 1,
-                    'deleted': false
-                },
-                '2': {
-                    'id': 2,
-                    'text': 'l1',
-                    'header': 'l1',
-                    'button_text': nil,
-                    'next_question': nil,
-                    'child_id': nil,
-                    'sibling_id': nil,
-                    'is_root': false,
-                    'flowchart_id': 1,
-                    'deleted': false
-                },
-                '3': {
-                    'id': 3,
-                    'text': 'l3',
-                    'header': 'l3',
-                    'button_text': nil,
-                    'next_question': nil,
-                    'child_id': nil,
-                    'sibling_id': nil,
-                    'is_root': false,
-                    'flowchart_id': 1,
-                    'deleted': false
-                },
-                '4': {
-                    'id': 4,
-                    'text': 'l2',
-                    'header': 'l2',
-                    'button_text': nil,
-                    'next_question': nil,
-                    'child_id': nil,
-                    'sibling_id': 3,
-                    'is_root': false,
-                    'flowchart_id': 1,
-                    'deleted': false
-                },
-                '5': {
-                    'id': 5,
-                    'text': 'm3',
-                    'header': 'm3',
-                    'button_text': nil,
-                    'next_question': nil,
-                    'child_id': nil,
-                    'sibling_id': nil,
-                    'is_root': false,
-                    'flowchart_id': 1,
-                    'deleted': false
-                },
-                '6': {
-                    'id': 6,
-                    'text': 'm2',
-                    'header': 'm2',
-                    'button_text': nil,
-                    'next_question': nil,
-                    'child_id': 4,
-                    'sibling_id': nil,
-                    'is_root': false,
-                    'flowchart_id': 1,
-                    'deleted': false
-                },
-                '7': {
-                    'id': 7,
-                    'text': 'm1',
-                    'header': 'm1',
-                    'button_text': nil,
-                    'next_question': nil,
-                    'child_id': 2,
-                    'sibling_id': nil,
-                    'is_root': false,
-                    'flowchart_id': 1,
-                    'deleted': false
-                },
-                '8': {
-                    'id': 8,
-                    'text': 'n3',
-                    'header': 'n3',
-                    'button_text': nil,
-                    'next_question': nil,
-                    'child_id': 5,
-                    'sibling_id': nil,
-                    'is_root': false,
-                    'flowchart_id': 1,
-                    'deleted': false
-                },
-                '9': {
-                    'id': 9,
-                    'text': 'n2',
-                    'header': 'n2',
-                    'button_text': nil,
-                    'next_question': nil,
-                    'child_id': 6,
-                    'sibling_id': 8,
-                    'is_root': false,
-                    'flowchart_id': 1,
-                    'deleted': false
-                },
-                '10': {
-                    'id': 10,
-                    'text': 'n1',
-                    'header': 'n1',
-                    'button_text': nil,
-                    'next_question': nil,
-                    'child_id': 7,
-                    'sibling_id': 9,
-                    'is_root': false,
-                    'flowchart_id': 1,
-                    'deleted': false
-                }
-            },
-            'adjacency_list': {
-                '1': {
-                    'child_id': 9
-                },
-                '3': {},
-                '4': {
-                    'sibling_id': 3
-                },
-                '5': {},
-                '6': {
-                    'child_id': 4
-                },
-                '8': {
-                    'child_id': 5
-                },
-                '9': {
-                    'sibling_id': 8,
-                    'child_id': 6
-                }
-            }
+      expected = {
+        'flowchart': {
+          'id': 1,
+          'title': 'chart 1',
+          'description': 'this chart is about abc',
+          'height': 0,
+          'root_id': 1,
+          'deleted': false
+        },
+        'flowchartnodes': {
+          '1': {
+            'id': 1,
+            'text': 'New Node',
+            'header': 'Options',
+            'button_text': nil,
+            'next_question': nil,
+            'child_id': 9,
+            'sibling_id': nil,
+            'is_root': true,
+            'flowchart_id': 1,
+            'deleted': false
+          },
+          '2': {
+            'id': 2,
+            'text': 'l1',
+            'header': 'l1',
+            'button_text': nil,
+            'next_question': nil,
+            'child_id': nil,
+            'sibling_id': nil,
+            'is_root': false,
+            'flowchart_id': 1,
+            'deleted': false
+          },
+          '3': {
+            'id': 3,
+            'text': 'l3',
+            'header': 'l3',
+            'button_text': nil,
+            'next_question': nil,
+            'child_id': nil,
+            'sibling_id': nil,
+            'is_root': false,
+            'flowchart_id': 1,
+            'deleted': false
+          },
+          '4': {
+            'id': 4,
+            'text': 'l2',
+            'header': 'l2',
+            'button_text': nil,
+            'next_question': nil,
+            'child_id': nil,
+            'sibling_id': 3,
+            'is_root': false,
+            'flowchart_id': 1,
+            'deleted': false
+          },
+          '5': {
+            'id': 5,
+            'text': 'm3',
+            'header': 'm3',
+            'button_text': nil,
+            'next_question': nil,
+            'child_id': nil,
+            'sibling_id': nil,
+            'is_root': false,
+            'flowchart_id': 1,
+            'deleted': false
+          },
+          '6': {
+            'id': 6,
+            'text': 'm2',
+            'header': 'm2',
+            'button_text': nil,
+            'next_question': nil,
+            'child_id': 4,
+            'sibling_id': nil,
+            'is_root': false,
+            'flowchart_id': 1,
+            'deleted': false
+          },
+          '7': {
+            'id': 7,
+            'text': 'm1',
+            'header': 'm1',
+            'button_text': nil,
+            'next_question': nil,
+            'child_id': 2,
+            'sibling_id': nil,
+            'is_root': false,
+            'flowchart_id': 1,
+            'deleted': false
+          },
+          '8': {
+            'id': 8,
+            'text': 'n3',
+            'header': 'n3',
+            'button_text': nil,
+            'next_question': nil,
+            'child_id': 5,
+            'sibling_id': nil,
+            'is_root': false,
+            'flowchart_id': 1,
+            'deleted': false
+          },
+          '9': {
+            'id': 9,
+            'text': 'n2',
+            'header': 'n2',
+            'button_text': nil,
+            'next_question': nil,
+            'child_id': 6,
+            'sibling_id': 8,
+            'is_root': false,
+            'flowchart_id': 1,
+            'deleted': false
+          },
+          '10': {
+            'id': 10,
+            'text': 'n1',
+            'header': 'n1',
+            'button_text': nil,
+            'next_question': nil,
+            'child_id': 7,
+            'sibling_id': 9,
+            'is_root': false,
+            'flowchart_id': 1,
+            'deleted': false
+          }
+        },
+        'adjacency_list': {
+          '1': {
+            'child_id': 9
+          },
+          '3': {},
+          '4': {
+            'sibling_id': 3
+          },
+          '5': {},
+          '6': {
+            'child_id': 4
+          },
+          '8': {
+            'child_id': 5
+          },
+          '9': {
+            'sibling_id': 8,
+            'child_id': 6
+          }
         }
-        post :serialized_flowchart_by_id, params: @params
-        res = JSON.parse(response.body).with_indifferent_access
-        p res
-        res[:flowchart].delete('updated_at')
-        res[:flowchart].delete('created_at')
-        res[:flowchartnodes].each do |id, node|
-            res[:flowchartnodes][id].delete('updated_at')
-            res[:flowchartnodes][id].delete('created_at')
-        end
+      }
+      post :serialized_flowchart_by_id, params: @params
+      res = JSON.parse(response.body).with_indifferent_access
+      p res
+      res[:flowchart].delete('updated_at')
+      res[:flowchart].delete('created_at')
+      res[:flowchartnodes].each do |id, _node|
+        res[:flowchartnodes][id].delete('updated_at')
+        res[:flowchartnodes][id].delete('created_at')
+      end
 
-        # Compares two ruby objects. The order of the keys will not matter.
-        expect(res).to eq(JSON.parse(expected.to_json))
+      # Compares two ruby objects. The order of the keys will not matter.
+      expect(res).to eq(JSON.parse(expected.to_json))
     end
   end
-
-
 end

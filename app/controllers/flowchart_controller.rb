@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class FlowchartController < ApplicationController
-
   def create
     @flowchart = Flowchart.new(JSON.parse(request.body.read))
 
