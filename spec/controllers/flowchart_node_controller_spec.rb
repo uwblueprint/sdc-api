@@ -93,6 +93,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       flowchart_id: 100,
       deleted: false
     )
+    ActiveRecord::Base.connection.reset_pk_sequence!('flowchart_nodes')
     @exclude_keys = %w[created_at updated_at]
   end
 
