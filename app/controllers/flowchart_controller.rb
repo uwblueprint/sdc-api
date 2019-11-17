@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class FlowchartController < ApplicationController
-  # TODO: Add Error Checking for invalid inputs or missing data in the database (eg. no flowchart with that id)
 
   def create
     @flowchart = Flowchart.new(JSON.parse(request.body.read))
