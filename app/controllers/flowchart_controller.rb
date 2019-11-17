@@ -6,15 +6,15 @@ class FlowchartController < ApplicationController
   def create
     @flowchart = Flowchart.new(JSON.parse(request.body.read))
 
-    if !@flowchart.valid?
+    unless @flowchart.valid?
       render status: 400, json: { error: 'Invalid Flowchart params' }
       return
     end
-    
-    @flowchart.save()
+
+    @flowchart = Flowchart.create(JSON.parse(request.body.read))
     root_node = FlowchartNode.create(flowchart_id: @flowchart.id, text: 'New Node', header: 'Options', is_root: true, deleted: false)
     @flowchart[:root_id] = root_node.id
-    @flowchart.save()
+    @flowchart.save
 
     render json: @flowchart
   end
@@ -26,18 +26,18 @@ class FlowchartController < ApplicationController
     end
 
     flowchart.update_attributes(JSON.parse(request.body.read))
-    if !flowchart.valid?
+    unless flowchart.valid?
       render status: 400, json: { error: 'Invalid flowchart params' }
       return
     end
-    
+
     @flowchart = Flowchart.update(params[:id], JSON.parse(request.body.read))
     render json: @flowchart
   end
 
   def delete
     @flowchart = Flowchart.find(params[:id])
-    if flowchart.nil?
+    if @flowchart.nil?
       render status: 404, json: { error: 'Could not find flowchart' }
     end
 
@@ -49,7 +49,7 @@ class FlowchartController < ApplicationController
   end
 
   def all_flowcharts
-    render json: Flowchart.all
+    render json: Flowchart.where(deleted: false)
   end
 
   def serialized_flowchart_by_id
