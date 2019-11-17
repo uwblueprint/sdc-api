@@ -4,8 +4,17 @@ class FlowchartController < ApplicationController
   # TODO: Add Error Checking for invalid inputs or missing data in the database (eg. no flowchart with that id)
 
   def create
-    @flowchart = Flowchart.create(JSON.parse(request.body.read))
-    FlowchartNode.create(flowchart_id: @flowchart.id, text: 'New Node', header: 'Options', is_root: true, deleted: false)
+    @flowchart = Flowchart.new(JSON.parse(request.body.read))
+
+    if !@flowchart.valid?
+      render status: 400, json: { error: 'Invalid Flowchart params' }
+      return
+    end
+    
+    @flowchart.save()
+    root_node = FlowchartNode.create(flowchart_id: @flowchart.id, text: 'New Node', header: 'Options', is_root: true, deleted: false)
+    @flowchart[:root_id] = root_node.id
+    @flowchart.save()
 
     render json: @flowchart
   end
@@ -16,6 +25,12 @@ class FlowchartController < ApplicationController
       render status: 404, json: { error: 'Could not find flowchart' }
     end
 
+    flowchart.update_attributes(JSON.parse(request.body.read))
+    if !flowchart.valid?
+      render status: 400, json: { error: 'Invalid flowchart params' }
+      return
+    end
+    
     @flowchart = Flowchart.update(params[:id], JSON.parse(request.body.read))
     render json: @flowchart
   end
