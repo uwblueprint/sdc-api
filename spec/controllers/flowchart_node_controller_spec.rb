@@ -93,6 +93,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       flowchart_id: 100,
       deleted: false
     )
+    # The primary key sequence isn't being updated properly in the test database, this line corrects the sequence
     ActiveRecord::Base.connection.reset_pk_sequence!('flowchart_nodes')
     @exclude_keys = %w[created_at updated_at]
   end
