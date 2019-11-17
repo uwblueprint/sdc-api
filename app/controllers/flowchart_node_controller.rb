@@ -18,7 +18,7 @@ class FlowchartNodeController < ApplicationController
           is_root: false,
           flowchart_id: prev_node.flowchart_id,
         )
-        if is_child
+        if is_child == 'true'
           @new_node.child_id = prev_node.child_id
           prev_node.child_id = @new_node.id
         else
