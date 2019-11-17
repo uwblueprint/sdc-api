@@ -16,7 +16,7 @@ class FlowchartNodeController < ApplicationController
           button_text: params[:button_text],
           next_question: params[:next_question],
           is_root: false,
-          flowchart_id: prev_node.flowchart_id,
+          flowchart_id: prev_node.flowchart_id
         )
         if is_child == 'true'
           @new_node.child_id = prev_node.child_id

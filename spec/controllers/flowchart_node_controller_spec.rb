@@ -118,15 +118,15 @@ RSpec.describe FlowchartNodeController, type: :controller do
         @params[:prev_id] = 4
         @params[:is_child] = true
         expected = {
-          "text" => "mock text",
-          "header" => "mock header",
-          "button_text" => "mock button text",
-          "next_question" => "mock next question",
-          "child_id" => nil,
-          "sibling_id" => nil,
-          "is_root" => false,
-          "flowchart_id" => 100,
-          "deleted" => false
+          'text' => 'mock text',
+          'header' => 'mock header',
+          'button_text' => 'mock button text',
+          'next_question' => 'mock next question',
+          'child_id' => nil,
+          'sibling_id' => nil,
+          'is_root' => false,
+          'flowchart_id' => 100,
+          'deleted' => false
         }
         post :create, params: @params
         res = JSON.parse(response.body)
@@ -138,15 +138,15 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
       it 'saves the new node to the database' do
         expected = {
-          "text" => "mock text",
-          "header" => "mock header",
-          "button_text" => "mock button text",
-          "next_question" => "mock next question",
-          "child_id" => nil,
-          "sibling_id" => nil,
-          "is_root" => false,
-          "flowchart_id" => 100,
-          "deleted" => false
+          'text' => 'mock text',
+          'header' => 'mock header',
+          'button_text' => 'mock button text',
+          'next_question' => 'mock next question',
+          'child_id' => nil,
+          'sibling_id' => nil,
+          'is_root' => false,
+          'flowchart_id' => 100,
+          'deleted' => false
         }
         @params[:prev_id] = 4
         @params[:is_child] = true
@@ -210,7 +210,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       it 'renders the error json' do
         @params[:prev_id] = 100
         @params[:is_child] = true
-        error_json = { :error => 'No node found with id 100.' }.to_json
+        error_json = { error: 'No node found with id 100.' }.to_json
         post :create, params: @params
         expect(response.body).to eq(error_json)
       end
