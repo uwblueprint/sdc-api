@@ -96,6 +96,43 @@ RSpec.describe FlowchartNodeController, type: :controller do
     @exclude_keys = %w[created_at updated_at]
   end
 
+  describe '.create' do
+    before(:each) do
+      @params = {
+        text: 'mock text',
+        header: 'mock header',
+        button_text: 'mock button text',
+        next_question: 'mock next question'
+      }
+    end
+
+    context 'when given a valid previous id' do
+      it 'returns status code 200' do
+        @params[:prev_id] = 4
+        @params[:is_child] = true
+        post :create, params: @params
+        expect(response.response_code).to eq(200)
+      end
+    end
+
+    context 'when given an invalid previous id' do
+      it 'returns status code 404' do
+        @params[:prev_id] = 100
+        @params[:is_child] = true
+        post :create, params: @params
+        expect(response.response_code).to eq(404)
+      end
+
+      it 'renders the error json' do
+        @params[:prev_id] = 100
+        @params[:is_child] = true
+        error_json = { :error => 'No node found with id 100.' }.to_json
+        post :create, params: @params
+        expect(response.body).to eq(error_json)
+      end
+    end
+  end
+
   describe '.show' do
     context 'when given a valid id' do
       it 'returns status code 200' do
