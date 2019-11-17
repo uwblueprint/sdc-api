@@ -6,94 +6,94 @@ require 'json'
 RSpec.describe FlowchartNodeController, type: :controller do
   before(:each) do
     Flowchart.create(id: 100, title: 'title', description: 'description', height: 0)
-    @node_8 = FlowchartNode.create(
+    @node8 = FlowchartNode.create(
       id: 8,
-      text: "h",
-      header: "hh",
-      button_text: "hhh",
-      next_question: "hhhh",
+      text: 'h',
+      header: 'hh',
+      button_text: 'hhh',
+      next_question: 'hhhh',
       is_root: false,
       flowchart_id: 100,
       deleted: false
     )
-    @node_7 = FlowchartNode.create(
+    @node7 = FlowchartNode.create(
       id: 7,
-      text: "g",
-      header: "gg",
-      button_text: "ggg",
-      next_question: "gggg",
+      text: 'g',
+      header: 'gg',
+      button_text: 'ggg',
+      next_question: 'gggg',
       is_root: false,
       flowchart_id: 100,
       deleted: false
     )
-    @node_6 = FlowchartNode.create(
+    @node6 = FlowchartNode.create(
       id: 6,
-      text: "f",
-      header: "ff",
-      button_text: "fff",
-      next_question: "ffff",
+      text: 'f',
+      header: 'ff',
+      button_text: 'fff',
+      next_question: 'ffff',
       child_id: 8,
       sibling_id: 7,
       is_root: false,
       flowchart_id: 100,
       deleted: false
     )
-    @node_5 = FlowchartNode.create(
+    @node5 = FlowchartNode.create(
       id: 5,
-      text: "e",
-      header: "ee",
-      button_text: "eee",
-      next_question: "eeee",
+      text: 'e',
+      header: 'ee',
+      button_text: 'eee',
+      next_question: 'eeee',
       is_root: false,
       flowchart_id: 100,
       deleted: false
     )
-    @node_4 = FlowchartNode.create(
+    @node4 = FlowchartNode.create(
       id: 4,
-      text: "d",
-      header: "dd",
-      button_text: "ddd",
-      next_question: "dddd",
+      text: 'd',
+      header: 'dd',
+      button_text: 'ddd',
+      next_question: 'dddd',
       sibling_id: 5,
       is_root: false,
       flowchart_id: 100,
       deleted: false
     )
-    @node_3 = FlowchartNode.create(
+    @node3 = FlowchartNode.create(
       id: 3,
-      text: "c",
-      header: "cc",
-      button_text: "ccc",
-      next_question: "cccc",
+      text: 'c',
+      header: 'cc',
+      button_text: 'ccc',
+      next_question: 'cccc',
       child_id: 6,
       sibling_id: 4,
       is_root: false,
       flowchart_id: 100,
       deleted: false
     )
-    @node_2 = FlowchartNode.create(
+    @node2 = FlowchartNode.create(
       id: 2,
-      text: "b",
-      header: "bb",
-      button_text: "bbb",
-      next_question: "bbbb",
+      text: 'b',
+      header: 'bb',
+      button_text: 'bbb',
+      next_question: 'bbbb',
       child_id: 3,
       is_root: false,
       flowchart_id: 100,
       deleted: false
     )
-    @node_1 = FlowchartNode.create(
+    @node1 = FlowchartNode.create(
       id: 1,
-      text: "a",
-      header: "aa",
-      button_text: "aaa",
-      next_question: "aaaa",
+      text: 'a',
+      header: 'aa',
+      button_text: 'aaa',
+      next_question: 'aaaa',
       child_id: 2,
       is_root: true,
       flowchart_id: 100,
       deleted: false
     )
-    @exclude_keys = ['created_at', 'updated_at']
+    @exclude_keys = %w[created_at updated_at]
   end
 
   describe '.show' do
@@ -105,7 +105,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
       it 'renders the correct json' do
         get :show, params: { id: 1 }
-        expect(response.body).to eq(@node_1.to_json)
+        expect(response.body).to eq(@node1.to_json)
       end
     end
 
@@ -116,7 +116,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       end
 
       it 'renders the error json' do
-        error_json = { :error => 'No node found with id 100.' }.to_json
+        error_json = { error: 'No node found with id 100.' }.to_json
         get :show, params: { id: 100 }
         expect(response.body).to eq(error_json)
       end
@@ -137,7 +137,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       before(:each) do
         @params[:id] = 1
 
-        @expected = @node_1
+        @expected = @node1
         @expected.text = 'mock text'
         @expected.header = 'mock header'
         @expected.button_text = 'mock button text'
@@ -172,7 +172,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       end
 
       it 'renders the error json' do
-        error_json = { :error => 'No node found with id 100.' }.to_json
+        error_json = { error: 'No node found with id 100.' }.to_json
         put :update, params: @params
         expect(response.body).to eq(error_json)
       end
@@ -184,15 +184,15 @@ RSpec.describe FlowchartNodeController, type: :controller do
       before(:each) do
         @params = {
           id_a: '3',
-          id_b: '4',
+          id_b: '4'
         }
         @expected = {
           'new_a' => {
             'id' => 3,
-            'text' => "d",
-            'header' => "dd",
-            'button_text' => "ddd",
-            'next_question' => "dddd",
+            'text' => 'd',
+            'header' => 'dd',
+            'button_text' => 'ddd',
+            'next_question' => 'dddd',
             'child_id' => nil,
             'sibling_id' => 4,
             'is_root' => false,
@@ -201,10 +201,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
           },
           'new_b' => {
             'id' => 4,
-            'text' => "c",
-            'header' => "cc",
-            'button_text' => "ccc",
-            'next_question' => "cccc",
+            'text' => 'c',
+            'header' => 'cc',
+            'button_text' => 'ccc',
+            'next_question' => 'cccc',
             'child_id' => 6,
             'sibling_id' => 5,
             'is_root' => false,
@@ -246,7 +246,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       before(:each) do
         @params = {
           id_a: '1',
-          id_b: '200',
+          id_b: '200'
         }
       end
 
@@ -256,7 +256,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       end
 
       it 'renders the error json' do
-        error_json = { :error => 'Error finding nodes with the given ids.' }.to_json
+        error_json = { error: 'Error finding nodes with the given ids.' }.to_json
         put :swap, params: @params
         expect(response.body).to eq(error_json)
       end
@@ -278,10 +278,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
       it 'soft deletes the subtree below the deleted node' do
         delete :delete, params: { id: 3 }
-        node_6 = FlowchartNode.find(6)
-        node_7 = FlowchartNode.find(7)
-        node_8 = FlowchartNode.find(8)
-        deleted_status = [node_6.deleted, node_7.deleted, node_8.deleted]
+        node6 = FlowchartNode.find(6)
+        node7 = FlowchartNode.find(7)
+        node8 = FlowchartNode.find(8)
+        deleted_status = [node6.deleted, node7.deleted, node8.deleted]
         expect(deleted_status).to match_array([true, true, true])
       end
 
@@ -300,7 +300,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
     context 'when given an invalid id' do
       before(:each) do
-        @params = { id: '100'}
+        @params = { id: '100' }
       end
 
       it 'returns status code 404' do
@@ -309,7 +309,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       end
 
       it 'renders the error json' do
-        error_json = { :error => 'No node found with id 100.' }.to_json
+        error_json = { error: 'No node found with id 100.' }.to_json
         delete :delete, params: @params
         expect(response.body).to eq(error_json)
       end

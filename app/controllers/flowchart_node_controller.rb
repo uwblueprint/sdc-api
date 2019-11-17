@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class FlowchartNodeController < ApplicationController
-  def create
-    parent_id = params[:id]
-  end
-
   def show
     id = params[:id]
     begin
@@ -20,11 +16,11 @@ class FlowchartNodeController < ApplicationController
     id = params[:id]
     begin
       flowchart_node = FlowchartNode.update(
-        id, 
-        :text => params[:text],
-        :header => params[:header],
-        :button_text => params[:button_text],
-        :next_question => params[:next_question]
+        id,
+        text: params[:text],
+        header: params[:header],
+        button_text: params[:button_text],
+        next_question: params[:next_question]
       )
     rescue StandardError
       render status: 404, json: { error: "No node found with id #{id}." }
