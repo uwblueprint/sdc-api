@@ -18,9 +18,10 @@ class FlowchartController < ApplicationController
   end
 
   def update
-    flowchart = Flowchart.find(params[:id])
-    if flowchart.nil?
+    flowchart = Flowchart.find_by(id: params[:id])
+    unless flowchart
       render status: 404, json: { error: 'Could not find flowchart' }
+      return
     end
 
     flowchart.update_attributes(JSON.parse(request.body.read))
@@ -34,9 +35,10 @@ class FlowchartController < ApplicationController
   end
 
   def delete
-    @flowchart = Flowchart.find(params[:id])
-    if @flowchart.nil?
+    @flowchart = Flowchart.find_by(id: params[:id])
+    unless @flowchart
       render status: 404, json: { error: 'Could not find flowchart' }
+      return
     end
 
     Flowchart.find(params[:id]).update(deleted: true)
@@ -53,12 +55,13 @@ class FlowchartController < ApplicationController
   def serialized_flowchart_by_id
     flowchartnodes = FlowchartNode.where(flowchart_id: params[:id], deleted: false)
     flowchart = Flowchart.find_by(id: params[:id], deleted: false)
-    root_node = FlowchartNode.get_root_node(params[:id])
 
     unless flowchart
       render status: 404, json: { error: "No flowchart found with id #{params[:id]}." }
       return
     end
+
+    root_node = FlowchartNode.find(flowchart.root_id)
 
     nodes_indexed_by_id = {}
     flowchartnodes.each do |node|

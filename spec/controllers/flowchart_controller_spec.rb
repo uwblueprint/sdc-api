@@ -120,6 +120,53 @@ RSpec.describe FlowchartController, type: :controller do
     end
   end
 
+  describe 'get nonexistent flowcahrt' do
+    before(:each) do
+      @params = {
+        'id': 5
+      }
+    end
+
+    it 'returns 404' do
+      post :serialized_flowchart_by_id, params: @params
+      expect(response.status).to eq(404)
+    end
+  end
+
+  describe 'update nonexistent flowchart' do
+    before(:each) do
+      @body =
+        {
+          'title': 'updated',
+          'description': 'updated',
+          'height': 3,
+          'deleted': false
+        }
+      @params = {
+        'id': 5
+      }
+    end
+
+    it 'returns 404' do
+      post :update, params: @params, body: @body.to_json
+      expect(response.status).to eq(404)
+    end
+  end
+
+  describe 'delete nonexistent flowchart' do
+    before(:each) do
+      Flowchart.create(id: 3, title: 'tmp', description: 'to be deleted', height: 0, deleted: false)
+      @params = {
+        'id': 5
+      }
+    end
+
+    it 'returns 404' do
+      post :delete, params: @params
+      expect(response.status).to eq(404)
+    end
+  end
+
   describe '.get serialized' do
     before(:each) do
       @params = {
@@ -282,7 +329,6 @@ RSpec.describe FlowchartController, type: :controller do
       }
       post :serialized_flowchart_by_id, params: @params
       res = JSON.parse(response.body).with_indifferent_access
-      p res
       res[:flowchart].delete('updated_at')
       res[:flowchart].delete('created_at')
       res[:flowchartnodes].each do |id, _node|
