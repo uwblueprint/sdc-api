@@ -9,6 +9,7 @@ Rails.application.routes.draw do
               },
               controllers: {
                 sessions: 'sessions'
-              }
+              },
+              defaults: { format: :json }
   get '/questions', to: 'questions#index'
 end

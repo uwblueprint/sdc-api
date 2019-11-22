@@ -42,7 +42,7 @@ module SdcApi
           '*',
           headers: :any,
           expose: ['Authorization'],
-          methods: %i[get put delete post show]
+          methods: [:get, :put, :delete, :post, :show]
         )
       end
     end
