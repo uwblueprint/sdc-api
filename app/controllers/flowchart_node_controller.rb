@@ -28,7 +28,7 @@ class FlowchartNodeController < ApplicationController
         @new_node.save!
         prev_node.save!
       end
-      render json: @new_node.as_json
+      render json: @new_node
     end
   end
 
@@ -39,7 +39,7 @@ class FlowchartNodeController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       render status: 404, json: { error: "No node found with id #{id}." }
     else
-      render json: node.as_json
+      render json: node
     end
   end
 
@@ -56,7 +56,7 @@ class FlowchartNodeController < ApplicationController
     rescue StandardError
       render status: 404, json: { error: "No node found with id #{id}." }
     else
-      render json: flowchart_node.as_json
+      render json: flowchart_node
     end
   end
 
@@ -79,7 +79,7 @@ class FlowchartNodeController < ApplicationController
         node_a.save!
         node_b.save!
       end
-      render status: 200, json: { new_a: node_a.as_json, new_b: node_b.as_json }
+      render status: 200, json: { new_a: node_a, new_b: node_b }
     end
   end
 
@@ -110,7 +110,7 @@ class FlowchartNodeController < ApplicationController
         end
       end
       child_node&.soft_delete
-      render status: 200, json: delete_node.as_json
+      render status: 200, json: delete_node
     end
   end
 end
