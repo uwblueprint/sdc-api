@@ -74,32 +74,45 @@ class FlowchartController < ApplicationController
 
     adjacency_list = {}
     if root_node
-
       queue = [root_node.id]
-      visited = {}
       until queue.empty?
         current_node_id = queue.shift
-        next if visited.key?(current_node_id)
-
-        visited[current_node_id] = true
         current_node = nodes_indexed_by_id[current_node_id]
 
-        unless adjacency_list.key?(current_node_id)
-          adjacency_list[current_node_id] = {}
-        end
-
-        if current_node[:sibling_id]
-          adjacency_list[current_node_id][:sibling_id] = current_node[:sibling_id]
-          queue.push(current_node[:sibling_id])
-        end
-
-        if current_node[:child_id]
-          adjacency_list[current_node_id][:child_id] = current_node[:child_id]
-          queue.push(current_node[:child_id])
+        p current_node
+        if current_node[:child_id].nil?
+          adjacency_list[current_node_id] = []
+        else
+          adjacents = []
+          traverse_id = current_node[:child_id]
+          until traverse_id.nil?
+            adjacents.push(traverse_id)
+            queue.push(traverse_id)
+            traverse = nodes_indexed_by_id[traverse_id]
+            traverse_id = traverse[:sibling_id]
+          end
+          adjacency_list[current_node_id] = adjacents
         end
       end
-
     end
+
+    # next if visited.key?(current_node_id)
+
+    #   visited[current_node_id] = true
+
+    #   unless adjacency_list.key?(current_node_id)
+    #     adjacency_list[current_node_id] = {}
+    #   end
+
+    #   if current_node[:sibling_id]
+    #     adjacency_list[current_node_id][:sibling_id] = current_node[:sibling_id]
+    #     queue.push(current_node[:sibling_id])
+    #   end
+
+    #   if current_node[:child_id]
+    #     adjacency_list[current_node_id][:child_id] = current_node[:child_id]
+    #     queue.push(current_node[:child_id])
+    #   end
 
     @serialized_flowchart = {}
     @serialized_flowchart[:flowchart] = flowchart
