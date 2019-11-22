@@ -4,6 +4,7 @@ class Flowchart < ApplicationRecord
   validates :title, format: { with: /[a-zA-Z ]/ }, null: false
   validates :description, format: { with: /[a-zA-Z ]/ }, null: false
   validates :height, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, null: false
+  validates :root_id, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :deleted, inclusion: { in: [true, false] }, null: false
 
   def calculate_and_set_max_height
