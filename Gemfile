@@ -46,5 +46,5 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'devise'
 gem 'devise-jwt', '~> 0.5.9'
-gem 'pg', '~> 1.1'
 gem 'jwt'
+gem 'pg', '~> 1.1'
