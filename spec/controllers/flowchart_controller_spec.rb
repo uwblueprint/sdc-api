@@ -174,13 +174,13 @@ RSpec.describe FlowchartController, type: :controller do
       }
     end
 
-    it 'renders all flowcharts' do
+    it 'renders a flowchart with expected values' do
       expected = {
         'flowchart': {
           'id': 1,
           'title': 'chart 1',
           'description': 'this chart is about abc',
-          'height': 0,
+          'height': 3,
           'root_id': 1,
           'deleted': false
         },

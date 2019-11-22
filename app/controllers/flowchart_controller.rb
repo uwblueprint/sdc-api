@@ -49,6 +49,8 @@ class FlowchartController < ApplicationController
   end
 
   def all_flowcharts
+    @flowcharts = Flowchart.where(deleted: false)
+    @flowcharts.each(&:calculate_and_set_max_height)
     render json: Flowchart.where(deleted: false)
   end
 
@@ -60,6 +62,8 @@ class FlowchartController < ApplicationController
       render status: 404, json: { error: "No flowchart found with id #{params[:id]}." }
       return
     end
+
+    flowchart.calculate_and_set_max_height
 
     root_node = FlowchartNode.find(flowchart.root_id)
 
