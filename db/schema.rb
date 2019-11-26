@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_015237) do
+ActiveRecord::Schema.define(version: 2019_11_26_021858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,14 +43,6 @@ ActiveRecord::Schema.define(version: 2019_11_15_015237) do
     t.index ["root_id"], name: "index_flowcharts_on_root_id"
   end
 
-  create_table "jwt_blacklist", force: :cascade do |t|
-    t.string "jti"
-    t.datetime "exp"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["jti"], name: "index_jwt_blacklist_on_jti"
-  end
-
   create_table "questions", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -61,7 +53,9 @@ ActiveRecord::Schema.define(version: 2019_11_15_015237) do
     t.string "encrypted_password", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "jti", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["jti"], name: "index_users_on_jti", unique: true
   end
 
   add_foreign_key "flowchart_nodes", "flowchart_nodes", column: "child_id"
