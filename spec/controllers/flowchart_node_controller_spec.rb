@@ -208,15 +208,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
         @params[:is_child] = true
       end
 
-      it 'returns status code 404' do
-        post :create, params: @params, body: @body.to_json
-        expect(response.response_code).to eq(404)
-      end
-
-      it 'renders the error json' do
-        error_json = { error: 'No node found with id 100.' }.to_json
-        post :create, params: @params, body: @body.to_json
-        expect(response.body).to eq(error_json)
+      it 'throws a record not found error' do
+        expect do
+          post :create, params: @params, body: @body.to_json
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -227,15 +222,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
         @body[:text] = nil
       end
 
-      it 'returns status code 400' do
-        post :create, params: @params, body: @body.to_json
-        expect(response.response_code).to eq(400)
-      end
-
-      it 'renders the error json' do
-        error_json = { error: 'Invalid flowchart node params' }.to_json
-        post :create, params: @params, body: @body.to_json
-        expect(response.body).to eq(error_json)
+      it 'throws a record invalid error' do
+        expect do
+          post :create, params: @params, body: @body.to_json
+        end.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
@@ -254,15 +244,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
     end
 
     context 'when given an invalid id' do
-      it 'returns status code 404' do
-        get :show, params: { id: 100 }
-        expect(response.response_code).to eq(404)
-      end
-
-      it 'renders the error json' do
-        error_json = { error: 'No node found with id 100.' }.to_json
-        get :show, params: { id: 100 }
-        expect(response.body).to eq(error_json)
+      it 'throws a record not found error' do
+        expect do
+          get :show, params: { id: 100 }
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
@@ -310,15 +295,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
         @params = { id: 100 }
       end
 
-      it 'returns status code 404' do
-        put :update, params: @params, body: @body.to_json
-        expect(response.response_code).to eq(404)
-      end
-
-      it 'renders the error json' do
-        error_json = { error: 'No node found with id 100.' }.to_json
-        put :update, params: @params, body: @body.to_json
-        expect(response.body).to eq(error_json)
+      it 'throws a record not found error' do
+        expect do
+          put :update, params: @params, body: @body.to_json
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -328,21 +308,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
         @body[:text] = nil
       end
 
-      it 'returns status code 400' do
-        put :update, params: @params, body: @body.to_json
-        expect(response.response_code).to eq(400)
-      end
-
-      it 'renders the error json' do
-        error_json = { error: 'Invalid flowchart node params' }.to_json
-        put :update, params: @params, body: @body.to_json
-        expect(response.body).to eq(error_json)
-      end
-
-      it 'does not update the node in the database' do
-        put :update, params: @params, body: @body.to_json
-        updated_node = FlowchartNode.find(1)
-        expect(updated_node).to eq(@node1)
+      it 'throws a record invalid error' do
+        expect do
+          put :update, params: @params, body: @body.to_json
+        end.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
@@ -418,15 +387,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
         }
       end
 
-      it 'returns status code 404' do
-        put :swap, params: @params
-        expect(response.response_code).to eq(404)
-      end
-
-      it 'renders the error json' do
-        error_json = { error: 'Error finding nodes with the given ids.' }.to_json
-        put :swap, params: @params
-        expect(response.body).to eq(error_json)
+      it 'throws a record not found error' do
+        expect do
+          put :swap, params: @params
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end
@@ -471,15 +435,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
         @params = { id: '100' }
       end
 
-      it 'returns status code 404' do
-        delete :delete, params: @params
-        expect(response.response_code).to eq(404)
-      end
-
-      it 'renders the error json' do
-        error_json = { error: 'No node found with id 100.' }.to_json
-        delete :delete, params: @params
-        expect(response.body).to eq(error_json)
+      it 'throws a record not found error' do
+        expect do
+          delete :delete, params: @params
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

@@ -5,68 +5,42 @@ class FlowchartNodeController < ApplicationController
     prev_id = params[:prev_id]
     is_child = params[:is_child]
 
-    begin
-      prev_node = FlowchartNode.find(prev_id)
+    prev_node = FlowchartNode.find(prev_id)
 
-      new_node = FlowchartNode.new(JSON.parse(request.body.read))
-      new_node.is_root = false
-      new_node.flowchart_id = prev_node.flowchart_id
+    new_node = FlowchartNode.new(JSON.parse(request.body.read))
+    new_node.is_root = false
+    new_node.flowchart_id = prev_node.flowchart_id
 
-      ActiveRecord::Base.transaction do
-        new_node.save!
-        if is_child == 'true'
-          new_node.child_id = prev_node.child_id
-          prev_node.child_id = new_node.id
-        else
-          new_node.sibling_id = prev_node.sibling_id
-          prev_node.sibling_id = new_node.id
-        end
-        new_node.save!
-        prev_node.save!
+    ActiveRecord::Base.transaction do
+      new_node.save!
+      if is_child == 'true'
+        new_node.child_id = prev_node.child_id
+        prev_node.child_id = new_node.id
+      else
+        new_node.sibling_id = prev_node.sibling_id
+        prev_node.sibling_id = new_node.id
       end
-    rescue ActiveRecord::RecordNotFound
-      render status: 404, json: { error: "No node found with id #{prev_id}." }
-    rescue ActiveRecord::RecordInvalid
-      render status: 400, json: { error: 'Invalid flowchart node params' }
-    else
-      render json: new_node
+      new_node.save!
+      prev_node.save!
     end
+    render json: new_node
   end
 
   def show
-    id = params[:id]
-    begin
-      node = FlowchartNode.find(id)
-    rescue ActiveRecord::RecordNotFound
-      render status: 404, json: { error: "No node found with id #{id}." }
-    else
-      render json: node
-    end
+    node = FlowchartNode.find(params[:id])
+    render json: node
   end
 
   def update
-    id = params[:id]
-    begin
-      flowchart_node = FlowchartNode.find(id)
-      flowchart_node.update!(JSON.parse(request.body.read))
-    rescue ActiveRecord::RecordNotFound
-      render status: 404, json: { error: "No node found with id #{id}." }
-    rescue ActiveRecord::RecordInvalid
-      render status: 400, json: { error: 'Invalid flowchart node params' }
-    else
-      render json: flowchart_node
-    end
+    flowchart_node = FlowchartNode.find(params[:id])
+    flowchart_node.update!(JSON.parse(request.body.read))
+    render json: flowchart_node
   end
 
   def swap
-    id_a = params[:id_a]
-    id_b = params[:id_b]
-    begin
-      node_a = FlowchartNode.find(id_a)
-      node_b = FlowchartNode.find(id_b)
-    rescue ActiveRecord::RecordNotFound
-      render status: 404, json: { error: 'Error finding nodes with the given ids.' }
-    else
+      node_a = FlowchartNode.find(params[:id_a])
+      node_b = FlowchartNode.find(params[:id_b])
+
       node_a.text, node_b.text = node_b.text, node_a.text
       node_a.header, node_b.header = node_b.header, node_a.header
       node_a.button_text, node_b.button_text = node_b.button_text, node_a.button_text
@@ -77,21 +51,19 @@ class FlowchartNodeController < ApplicationController
         node_a.save!
         node_b.save!
       end
-      render status: 200, json: { new_a: node_a, new_b: node_b }
-    end
+      render json: { new_a: node_a, new_b: node_b }
   end
 
   def delete
-    delete_id = params[:id]
-    begin
+      delete_id = params[:id]
+
       delete_node = FlowchartNode.find(delete_id)
-    rescue ActiveRecord::RecordNotFound
-      render status: 404, json: { error: "No node found with id #{delete_id}." }
-    else
+      delete_node.deleted = true
+
       parent_node = FlowchartNode.find_by(child_id: delete_id)
       left_node = FlowchartNode.find_by(sibling_id: delete_id)
       child_node = FlowchartNode.find_by(id: delete_node.child_id)
-      delete_node.deleted = true
+
       if !parent_node && !left_node
         delete_node.save!
       elsif !parent_node
@@ -108,7 +80,6 @@ class FlowchartNodeController < ApplicationController
         end
       end
       child_node&.soft_delete
-      render status: 200, json: delete_node
-    end
+      render json: delete_node
   end
 end
