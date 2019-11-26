@@ -62,6 +62,15 @@ SELECT * FROM questions;
 \d+ questions
 ```
 
+**Environment Variable Setup**
+```
+# remove .template from .env.development.local.template and fill in .env.development.local, example values:
+CORS_ORIGIN=http://localhost:3000
+SEED_USER_EMAIL=test@test.com
+SEED_USER_PASSWORD=password
+DEVISE_JWT_SECRET_KEY=super_secret_secret_key
+```
+
 ## Troubleshooting
 **(Windows) Bundle Install Fails Due to pg?**
 Try the following:
