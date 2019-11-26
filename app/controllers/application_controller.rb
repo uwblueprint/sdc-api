@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-include ActionController::MimeResponds
 class ApplicationController < ActionController::API
   respond_to :json
   def render_resource(resource)

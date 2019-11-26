@@ -1,3 +1,6 @@
 # frozen_string_literal: true
 
-Question.create
+case Rails.env
+when "development"
+   User.create(email: ENV['SEED_USER_EMAIL'], password: ENV['SEED_USER_PASSWORD'])
+end
