@@ -76,7 +76,7 @@ RSpec.describe FlowchartController, type: :controller do
         'height': 3,
         'deleted': false
       }
-      post :update, params: @params, body: @body.to_json
+      put :update, params: @params, body: @body.to_json
       res = JSON.parse(response.body)
       res.delete('updated_at')
       res.delete('created_at')
