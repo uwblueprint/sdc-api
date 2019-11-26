@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class Flowchart < ApplicationRecord
-  validates :title, format: { with: /[a-zA-Z ]/ }, null: false
-  validates :description, format: { with: /[a-zA-Z ]/ }, null: false
-  validates :height, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, null: false
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :height, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, presence: true
   validates :root_id, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
-  validates :deleted, inclusion: { in: [true, false] }, null: false
+  validates :deleted, inclusion: { in: [true, false] }, allow_nil: true # defaults to false
 
   def calculate_and_set_max_height
     flowchartnodes = FlowchartNode.where(flowchart_id: id, deleted: false)
