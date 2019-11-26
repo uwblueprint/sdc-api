@@ -24,4 +24,18 @@ RSpec.describe FlowchartNode, type: :model do
       FlowchartNode.create!
     end.to raise_error(ActiveRecord::RecordInvalid)
   end
+
+  it 'is not valid with empty string attributes' do
+    expect do
+      FlowchartNode.create!(
+        id: 1,
+        text: '',
+        header: '',
+        button_text: '',
+        next_question: '',
+        is_root: true,
+        flowchart_id: 100
+      )
+    end.to raise_error(ActiveRecord::RecordInvalid)
+  end
 end

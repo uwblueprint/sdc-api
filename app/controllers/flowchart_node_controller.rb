@@ -4,31 +4,32 @@ class FlowchartNodeController < ApplicationController
   def create
     prev_id = params[:prev_id]
     is_child = params[:is_child]
+
     begin
       prev_node = FlowchartNode.find(prev_id)
-    rescue ActiveRecord::RecordNotFound
-      render status: 404, json: { error: "No node found with id #{prev_id}." }
-    else
+
+      new_node = FlowchartNode.new(JSON.parse(request.body.read))
+      new_node.is_root = false
+      new_node.flowchart_id = prev_node.flowchart_id
+
       ActiveRecord::Base.transaction do
-        @new_node = FlowchartNode.create(
-          text: params[:text],
-          header: params[:header],
-          button_text: params[:button_text],
-          next_question: params[:next_question],
-          is_root: false,
-          flowchart_id: prev_node.flowchart_id
-        )
+        new_node.save!
         if is_child == 'true'
-          @new_node.child_id = prev_node.child_id
-          prev_node.child_id = @new_node.id
+          new_node.child_id = prev_node.child_id
+          prev_node.child_id = new_node.id
         else
-          @new_node.sibling_id = prev_node.sibling_id
-          prev_node.sibling_id = @new_node.id
+          new_node.sibling_id = prev_node.sibling_id
+          prev_node.sibling_id = new_node.id
         end
-        @new_node.save!
+        new_node.save!
         prev_node.save!
       end
-      render json: @new_node
+    rescue ActiveRecord::RecordNotFound
+      render status: 404, json: { error: "No node found with id #{prev_id}." }
+    rescue ActiveRecord::RecordInvalid
+      render status: 400, json: { error: 'Invalid flowchart node params' }
+    else
+      render json: new_node
     end
   end
 

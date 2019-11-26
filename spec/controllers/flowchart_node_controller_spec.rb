@@ -100,19 +100,20 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
   describe '.create' do
     before(:each) do
-      @params = {
+      @body = {
         text: 'mock text',
         header: 'mock header',
         button_text: 'mock button text',
         next_question: 'mock next question'
       }
+      @params = {}
     end
 
     context 'when given a valid previous id' do
       it 'returns status code 200' do
         @params[:prev_id] = 4
         @params[:is_child] = true
-        post :create, params: @params
+        post :create, params: @params, body: @body.to_json
         expect(response.response_code).to eq(200)
       end
 
@@ -130,7 +131,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'flowchart_id' => 100,
           'deleted' => false
         }
-        post :create, params: @params
+        post :create, params: @params, body: @body.to_json
         res = JSON.parse(response.body)
         res.delete('updated_at')
         res.delete('created_at')
@@ -152,7 +153,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
         }
         @params[:prev_id] = 4
         @params[:is_child] = true
-        post :create, params: @params
+        post :create, params: @params, body: @body.to_json
         res = JSON.parse(response.body)
         new_node = FlowchartNode.find(res['id'])
         expect(new_node.attributes.except(*@exclude_keys, 'id')).to eq(expected)
@@ -162,7 +163,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
         it 'updates child_id of the parent node to the new node' do
           @params[:prev_id] = 3
           @params[:is_child] = true
-          post :create, params: @params
+          post :create, params: @params, body: @body.to_json
           res = JSON.parse(response.body)
           new_id = res['id']
           parent_node = FlowchartNode.find(3)
@@ -173,7 +174,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           @params[:prev_id] = 3
           @params[:is_child] = true
           parent_node = FlowchartNode.find(3)
-          post :create, params: @params
+          post :create, params: @params, body: @body.to_json
           res = JSON.parse(response.body)
           expect(res['child_id']).to be parent_node.child_id
         end
@@ -183,7 +184,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
         it 'updates sibling_id of the previous node to the new node' do
           @params[:prev_id] = 3
           @params[:is_child] = false
-          post :create, params: @params
+          post :create, params: @params, body: @body.to_json
           res = JSON.parse(response.body)
           new_id = res['id']
           parent_node = FlowchartNode.find(3)
@@ -194,7 +195,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           @params[:prev_id] = 3
           @params[:is_child] = false
           parent_node = FlowchartNode.find(3)
-          post :create, params: @params
+          post :create, params: @params, body: @body.to_json
           res = JSON.parse(response.body)
           expect(res['sibling_id']).to be parent_node.sibling_id
         end
@@ -202,18 +203,38 @@ RSpec.describe FlowchartNodeController, type: :controller do
     end
 
     context 'when given an invalid previous id' do
-      it 'returns status code 404' do
+      before(:each) do
         @params[:prev_id] = 100
         @params[:is_child] = true
-        post :create, params: @params
+      end
+
+      it 'returns status code 404' do
+        post :create, params: @params, body: @body.to_json
         expect(response.response_code).to eq(404)
       end
 
       it 'renders the error json' do
-        @params[:prev_id] = 100
-        @params[:is_child] = true
         error_json = { error: 'No node found with id 100.' }.to_json
-        post :create, params: @params
+        post :create, params: @params, body: @body.to_json
+        expect(response.body).to eq(error_json)
+      end
+    end
+
+    context 'when given an invalid body' do
+      before(:each) do
+        @params[:prev_id] = 3
+        @params[:is_child] = true
+        @body[:text] = nil
+      end
+
+      it 'returns status code 400' do
+        post :create, params: @params, body: @body.to_json
+        expect(response.response_code).to eq(400)
+      end
+
+      it 'renders the error json' do
+        error_json = { error: 'Invalid flowchart node params' }.to_json
+        post :create, params: @params, body: @body.to_json
         expect(response.body).to eq(error_json)
       end
     end

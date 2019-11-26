@@ -4,6 +4,8 @@ class FlowchartNode < ApplicationRecord
   belongs_to :flowchart
   validates :text, presence: true
   validates :header, presence: true
+  validates :button_text, exclusion: { in: [''] }
+  validates :next_question, exclusion: { in: [''] }
   validates :child_id, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :sibling_id, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
   validates :is_root, null: false
