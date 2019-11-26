@@ -248,7 +248,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
   describe '.update' do
     before(:each) do
-      @params = {
+      @body = {
         text: 'mock text',
         header: 'mock header',
         button_text: 'mock button text',
@@ -258,7 +258,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
     context 'when given a valid id' do
       before(:each) do
-        @params[:id] = 1
+        @params = { id: 1 }
 
         @expected = @node1
         @expected.text = 'mock text'
@@ -268,36 +268,60 @@ RSpec.describe FlowchartNodeController, type: :controller do
       end
 
       it 'returns status code 200' do
-        put :update, params: @params
+        put :update, params: @params, body: @body.to_json
         expect(response.response_code).to eq(200)
       end
 
       it 'updates the node in the database' do
-        put :update, params: @params
+        put :update, params: @params, body: @body.to_json
         updated_node = FlowchartNode.find(1)
         expect(updated_node.attributes.except(*@exclude_keys)).to eq(@expected.attributes.except(*@exclude_keys))
       end
 
       it 'renders the json of the updated node' do
-        put :update, params: @params
+        put :update, params: @params, body: @body.to_json
         expect(JSON.parse(response.body).except(*@exclude_keys)).to eq(@expected.attributes.except(*@exclude_keys))
       end
     end
 
     context 'when given an invalid id' do
       before(:each) do
-        @params[:id] = 100
+        @params = { id: 100 }
       end
 
       it 'returns status code 404' do
-        put :update, params: @params
+        put :update, params: @params, body: @body.to_json
         expect(response.response_code).to eq(404)
       end
 
       it 'renders the error json' do
         error_json = { error: 'No node found with id 100.' }.to_json
-        put :update, params: @params
+        put :update, params: @params, body: @body.to_json
         expect(response.body).to eq(error_json)
+      end
+    end
+
+    context 'when given an invalid body' do
+      before(:each) do
+        @params = { id: 1 }
+        @body[:text] = nil
+      end
+
+      it 'returns status code 400' do
+        put :update, params: @params, body: @body.to_json
+        expect(response.response_code).to eq(400)
+      end
+
+      it 'renders the error json' do
+        error_json = { error: 'Invalid flowchart node params' }.to_json
+        put :update, params: @params, body: @body.to_json
+        expect(response.body).to eq(error_json)
+      end
+
+      it 'does not update the node in the database' do
+        put :update, params: @params, body: @body.to_json
+        updated_node = FlowchartNode.find(1)
+        expect(updated_node).to eq(@node1)
       end
     end
   end

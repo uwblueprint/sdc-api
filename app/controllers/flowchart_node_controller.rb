@@ -46,15 +46,12 @@ class FlowchartNodeController < ApplicationController
   def update
     id = params[:id]
     begin
-      flowchart_node = FlowchartNode.update(
-        id,
-        text: params[:text],
-        header: params[:header],
-        button_text: params[:button_text],
-        next_question: params[:next_question]
-      )
-    rescue StandardError
+      flowchart_node = FlowchartNode.find(id)
+      flowchart_node.update!(JSON.parse(request.body.read))
+    rescue ActiveRecord::RecordNotFound
       render status: 404, json: { error: "No node found with id #{id}." }
+    rescue ActiveRecord::RecordInvalid
+      render status: 400, json: { error: 'Invalid flowchart node params' }
     else
       render json: flowchart_node
     end
