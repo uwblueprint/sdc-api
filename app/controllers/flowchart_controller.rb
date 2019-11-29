@@ -48,13 +48,13 @@ class FlowchartController < ApplicationController
     render json: @flowchart
   end
 
-  def get_all_flowcharts
+  def all_flowcharts
     @flowcharts = Flowchart.where(deleted: false)
     @flowcharts.each(&:calculate_and_set_max_height)
     render json: Flowchart.where(deleted: false)
   end
 
-  def get_serialized_flowchart_by_id
+  def serialized_flowchart_by_id
     flowchart = Flowchart.find_by(id: params[:id], deleted: false)
 
     unless Flowchart.find_by(id: params[:id], deleted: false)

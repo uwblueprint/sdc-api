@@ -113,7 +113,7 @@ RSpec.describe FlowchartController, type: :controller do
 
   describe '.get all' do
     it 'renders all flowcharts' do
-      post :get_all_flowcharts
+      post :all_flowcharts
       res = JSON.parse(response.body)
       expect(res.size).to eq(1)
       # We created one initially in the before each. Anything created within a describe block gets cleaned up (ie from the create/delete tests)
@@ -128,7 +128,7 @@ RSpec.describe FlowchartController, type: :controller do
     end
 
     it 'returns 404' do
-      post :get_serialized_flowchart_by_id, params: @params
+      post :serialized_flowchart_by_id, params: @params
       expect(response.status).to eq(404)
     end
   end
@@ -319,7 +319,7 @@ RSpec.describe FlowchartController, type: :controller do
           '9' => [6]
         }
       }
-      post :get_serialized_flowchart_by_id, params: @params
+      post :serialized_flowchart_by_id, params: @params
       res = JSON.parse(response.body).with_indifferent_access
       res[:flowchart].delete('updated_at')
       res[:flowchart].delete('created_at')

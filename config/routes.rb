@@ -3,8 +3,8 @@
 Rails.application.routes.draw do
   devise_for :users
   get '/questions', to: 'questions#index'
-  get '/flowchart/:id', to: 'flowchart#get_serialized_flowchart_by_id'
-  get '/flowcharts', to: 'flowchart#get_all_flowcharts'
+  get '/flowchart/:id', to: 'flowchart#serialized_flowchart_by_id'
+  get '/flowcharts', to: 'flowchart#all_flowcharts'
   post '/flowchart', to: 'flowchart#create'
   put '/flowchart/:id', to: 'flowchart#update'
   delete '/flowchart/:id', to: 'flowchart#delete'

@@ -42,8 +42,7 @@ class Flowchart < ApplicationRecord
     update(height: max_height)
   end
 
-
-  def serialized()
+  def serialized
     root_node = FlowchartNode.find(root_id)
     flowchartnodes = FlowchartNode.where(flowchart_id: id, deleted: false)
 
@@ -79,6 +78,6 @@ class Flowchart < ApplicationRecord
     @serialized_flowchart[:flowchart] = attributes
     @serialized_flowchart[:flowchartnodes] = nodes_indexed_by_id
     @serialized_flowchart[:adjacency_list] = adjacency_list
-    return @serialized_flowchart
+    @serialized_flowchart
   end
 end
