@@ -71,6 +71,12 @@ SEED_USER_PASSWORD=password
 DEVISE_JWT_SECRET_KEY=super_secret_secret_key
 ```
 
+**Authenticating Routes with Devise**
+```
+# This project includes Devise for auth, add this line before the resource to require a user to be logged in:
+before_action :authenticate_user!
+```
+
 ## Troubleshooting
 **(Windows) Bundle Install Fails Due to pg?**
 Try the following:
