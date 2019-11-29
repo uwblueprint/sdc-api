@@ -100,20 +100,21 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
   describe '.create' do
     before(:each) do
-      @body = {
-        text: 'mock text',
-        header: 'mock header',
-        button_text: 'mock button text',
-        next_question: 'mock next question'
+      @params = {
+        node: {
+          text: 'mock text',
+          header: 'mock header',
+          button_text: 'mock button text',
+          next_question: 'mock next question'
+        }
       }
-      @params = {}
     end
 
     context 'when given a valid previous id' do
       it 'returns status code 200' do
         @params[:prev_id] = 4
         @params[:is_child] = true
-        post :create, params: @params, body: @body.to_json
+        post :create, params: @params
         expect(response.response_code).to eq(200)
       end
 
@@ -131,7 +132,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'flowchart_id' => 100,
           'deleted' => false
         }
-        post :create, params: @params, body: @body.to_json
+        post :create, params: @params
         res = JSON.parse(response.body)
         res.delete('updated_at')
         res.delete('created_at')
@@ -153,7 +154,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
         }
         @params[:prev_id] = 4
         @params[:is_child] = true
-        post :create, params: @params, body: @body.to_json
+        post :create, params: @params
         res = JSON.parse(response.body)
         new_node = FlowchartNode.find(res['id'])
         expect(new_node.attributes.except(*@exclude_keys, 'id')).to eq(expected)
@@ -163,7 +164,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
         it 'updates child_id of the parent node to the new node' do
           @params[:prev_id] = 3
           @params[:is_child] = true
-          post :create, params: @params, body: @body.to_json
+          post :create, params: @params
           res = JSON.parse(response.body)
           new_id = res['id']
           parent_node = FlowchartNode.find(3)
@@ -174,7 +175,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           @params[:prev_id] = 3
           @params[:is_child] = true
           parent_node = FlowchartNode.find(3)
-          post :create, params: @params, body: @body.to_json
+          post :create, params: @params
           res = JSON.parse(response.body)
           expect(res['child_id']).to be parent_node.child_id
         end
@@ -184,7 +185,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
         it 'updates sibling_id of the previous node to the new node' do
           @params[:prev_id] = 3
           @params[:is_child] = false
-          post :create, params: @params, body: @body.to_json
+          post :create, params: @params
           res = JSON.parse(response.body)
           new_id = res['id']
           parent_node = FlowchartNode.find(3)
@@ -195,7 +196,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           @params[:prev_id] = 3
           @params[:is_child] = false
           parent_node = FlowchartNode.find(3)
-          post :create, params: @params, body: @body.to_json
+          post :create, params: @params
           res = JSON.parse(response.body)
           expect(res['sibling_id']).to be parent_node.sibling_id
         end
@@ -210,7 +211,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
       it 'throws a record not found error' do
         expect do
-          post :create, params: @params, body: @body.to_json
+          post :create, params: @params
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -219,12 +220,12 @@ RSpec.describe FlowchartNodeController, type: :controller do
       before(:each) do
         @params[:prev_id] = 3
         @params[:is_child] = true
-        @body[:text] = nil
+        @params[:node][:text] = nil
       end
 
       it 'throws a record invalid error' do
         expect do
-          post :create, params: @params, body: @body.to_json
+          post :create, params: @params
         end.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
@@ -254,17 +255,19 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
   describe '.update' do
     before(:each) do
-      @body = {
-        text: 'mock text',
-        header: 'mock header',
-        button_text: 'mock button text',
-        next_question: 'mock next question'
+      @params = {
+        node: {
+          text: 'mock text',
+          header: 'mock header',
+          button_text: 'mock button text',
+          next_question: 'mock next question'
+        }
       }
     end
 
     context 'when given a valid id' do
       before(:each) do
-        @params = { id: 1 }
+        @params[:id] = 1
 
         @expected = @node1
         @expected.text = 'mock text'
@@ -274,43 +277,43 @@ RSpec.describe FlowchartNodeController, type: :controller do
       end
 
       it 'returns status code 200' do
-        put :update, params: @params, body: @body.to_json
+        put :update, params: @params
         expect(response.response_code).to eq(200)
       end
 
       it 'updates the node in the database' do
-        put :update, params: @params, body: @body.to_json
+        put :update, params: @params
         updated_node = FlowchartNode.find(1)
         expect(updated_node.attributes.except(*@exclude_keys)).to eq(@expected.attributes.except(*@exclude_keys))
       end
 
       it 'renders the json of the updated node' do
-        put :update, params: @params, body: @body.to_json
+        put :update, params: @params
         expect(JSON.parse(response.body).except(*@exclude_keys)).to eq(@expected.attributes.except(*@exclude_keys))
       end
     end
 
     context 'when given an invalid id' do
       before(:each) do
-        @params = { id: 100 }
+        @params[:id] = 100
       end
 
       it 'throws a record not found error' do
         expect do
-          put :update, params: @params, body: @body.to_json
+          put :update, params: @params
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
     context 'when given an invalid body' do
       before(:each) do
-        @params = { id: 1 }
-        @body[:text] = nil
+        @params[:id] = 1
+        @params[:node][:text] = nil
       end
 
       it 'throws a record invalid error' do
         expect do
-          put :update, params: @params, body: @body.to_json
+          put :update, params: @params
         end.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
