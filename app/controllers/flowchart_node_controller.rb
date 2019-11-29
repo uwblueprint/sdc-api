@@ -39,19 +39,9 @@ class FlowchartNodeController < ApplicationController
 
   def swap
     node_a = FlowchartNode.find(params[:id_a])
-    node_b = FlowchartNode.find(params[:id_b])
+    res = node_a&.swap(params[:id_b])
 
-    node_a.text, node_b.text = node_b.text, node_a.text
-    node_a.header, node_b.header = node_b.header, node_a.header
-    node_a.button_text, node_b.button_text = node_b.button_text, node_a.button_text
-    node_a.next_question, node_b.next_question = node_b.next_question, node_a.next_question
-    node_a.is_root, node_b.is_root = node_b.is_root, node_a.is_root
-    node_a.child_id, node_b.child_id = node_b.child_id, node_a.child_id
-    ActiveRecord::Base.transaction do
-      node_a.save!
-      node_b.save!
-    end
-    render json: { new_a: node_a, new_b: node_b }
+    render json: { new_a: res[:new_a], new_b: res[:new_b] }
   end
 
   def delete
