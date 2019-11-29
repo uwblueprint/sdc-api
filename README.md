@@ -23,6 +23,15 @@ This project was started in Fall 2019 and is currently in development.
 
 ## Development Setup
 
+**Environment Setup**
+
+Pull the repository and navigate into the project root. Make sure Ruby and Bundle are installed.
+
+```
+# install dependencies
+bundle install
+```
+
 **Installing Docker:** 
 
 Please refer to the offical docs at https://docs.docker.com/install/
@@ -33,6 +42,7 @@ Please refer to the offical docs at https://docs.docker.com/install/
 docker pull postgres
 
 # run the docker container
+# take note of the password here
 docker run -e POSTGRES_PASSWORD=sdcdev -p 5432:5432 -d postgres
 
 # init the database and sample data
@@ -50,6 +60,7 @@ docker stop <container id>
 **Connecting to the Development DB** 
 ```
 # connect to docker container
+# password was set in the command to run the container above
 psql -h localhost -U postgres -d postgres
 
 # go into the sdc database of the postgres server
@@ -77,6 +88,12 @@ DEVISE_JWT_SECRET_KEY=super_secret_secret_key
 before_action :authenticate_user!
 ```
 
+**Run the dev server**
+
+```
+rails s
+```
+
 ## Troubleshooting
 **(Windows) Bundle Install Fails Due to pg?**
 Try the following:
@@ -85,3 +102,12 @@ sudo apt-get install libpq-dev
 gem install pg  --   --with-pg-lib=/usr/lib
 bundle install
 ```
+
+**Bundle Install fails because bundler cannot be found**
+
+If you get an error during dependency installation containing `can't find gem bundler (>= 0.a) with executable bundle` but bundle is installed, try
+```
+gem update --system
+bundle install
+```
+This worked with Ruby 2.5.1 with `rbenv` on MacOS.
