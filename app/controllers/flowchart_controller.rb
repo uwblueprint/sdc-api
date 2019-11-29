@@ -96,24 +96,6 @@ class FlowchartController < ApplicationController
       end
     end
 
-    # next if visited.key?(current_node_id)
-
-    #   visited[current_node_id] = true
-
-    #   unless adjacency_list.key?(current_node_id)
-    #     adjacency_list[current_node_id] = {}
-    #   end
-
-    #   if current_node[:sibling_id]
-    #     adjacency_list[current_node_id][:sibling_id] = current_node[:sibling_id]
-    #     queue.push(current_node[:sibling_id])
-    #   end
-
-    #   if current_node[:child_id]
-    #     adjacency_list[current_node_id][:child_id] = current_node[:child_id]
-    #     queue.push(current_node[:child_id])
-    #   end
-
     @serialized_flowchart = {}
     @serialized_flowchart[:flowchart] = flowchart
     @serialized_flowchart[:flowchartnodes] = nodes_indexed_by_id
