@@ -55,31 +55,8 @@ class FlowchartNodeController < ApplicationController
   end
 
   def delete
-    delete_id = params[:id]
-
-    delete_node = FlowchartNode.find(delete_id)
-    delete_node.deleted = true
-
-    parent_node = FlowchartNode.find_by(child_id: delete_id)
-    left_node = FlowchartNode.find_by(sibling_id: delete_id)
-    child_node = FlowchartNode.find_by(id: delete_node.child_id)
-
-    if !parent_node && !left_node
-      delete_node.save!
-    elsif !parent_node
-      left_node.sibling_id = delete_node.sibling_id
-      ActiveRecord::Base.transaction do
-        left_node.save!
-        delete_node.save!
-      end
-    else
-      parent_node.child_id = delete_node.sibling_id
-      ActiveRecord::Base.transaction do
-        parent_node.save!
-        delete_node.save!
-      end
-    end
-    child_node&.soft_delete
+    delete_node = FlowchartNode.find(params[:id])
+    delete_node&.delete
     render json: delete_node
   end
 end
