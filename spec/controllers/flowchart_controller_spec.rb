@@ -18,7 +18,7 @@ RSpec.describe FlowchartController, type: :controller do
     FlowchartNode.create(id: 8, header: 'n3', text: 'n3', flowchart_id: 1, is_root: false, child_id: 5)
     FlowchartNode.create(id: 9, header: 'n2', text: 'n2', flowchart_id: 1, is_root: false, child_id: 6, sibling_id: 8)
     FlowchartNode.create(id: 10, header: 'n1', text: 'n1', flowchart_id: 1, is_root: false, child_id: 7, sibling_id: 9)
-    FlowchartNode.create(id: 1, flowchart_id: 1, text: 'New Node', header: 'Options', is_root: true, child_id: 10, deleted: false)
+    FlowchartNode.create(id: 1, flowchart_id: 1, text: 'Insert Text', header: 'Insert Header', is_root: true, child_id: 10, deleted: false)
     flowchart = Flowchart.find_by(id: 1)
     flowchart.update_attributes(root_id: 1)
     # The primary key sequence isn't being updated properly in the test database, this line corrects the sequence
@@ -190,12 +190,12 @@ RSpec.describe FlowchartController, type: :controller do
             'child_id' => 10,
             'deleted' => false,
             'flowchart_id' => 1,
-            'header' => 'Options',
+            'header' => 'Insert Header',
             'id' => 1,
             'is_root' => true,
             'next_question' => nil,
             'sibling_id' => nil,
-            'text' => 'New Node'
+            'text' => 'Insert Text'
           },
           "10": {
             'button_text' => nil,

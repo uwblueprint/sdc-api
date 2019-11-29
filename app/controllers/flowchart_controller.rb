@@ -10,7 +10,7 @@ class FlowchartController < ApplicationController
     end
 
     @flowchart = Flowchart.create(JSON.parse(request.body.read))
-    root_node = FlowchartNode.create(flowchart_id: @flowchart.id, text: 'New Node', header: 'Options', is_root: true, deleted: false)
+    root_node = FlowchartNode.create(flowchart_id: @flowchart.id, text: 'Insert Text', header: 'Insert Header', is_root: true, deleted: false)
     @flowchart[:root_id] = root_node.id
     @flowchart.save
 
