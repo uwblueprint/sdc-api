@@ -128,7 +128,7 @@ RSpec.describe FlowchartController, type: :controller do
     end
 
     it 'returns 404' do
-      post :serialized_flowchart_by_id, params: @params
+      post :get_serialized_flowchart_by_id, params: @params
       expect(response.status).to eq(404)
     end
   end
@@ -319,7 +319,7 @@ RSpec.describe FlowchartController, type: :controller do
           '9' => [6]
         }
       }
-      post :serialized_flowchart_by_id, params: @params
+      post :get_serialized_flowchart_by_id, params: @params
       res = JSON.parse(response.body).with_indifferent_access
       res[:flowchart].delete('updated_at')
       res[:flowchart].delete('created_at')

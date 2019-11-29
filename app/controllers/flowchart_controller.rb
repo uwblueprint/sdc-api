@@ -54,7 +54,7 @@ class FlowchartController < ApplicationController
     render json: Flowchart.where(deleted: false)
   end
 
-  def serialized_flowchart_by_id
+  def get_serialized_flowchart_by_id
     flowchartnodes = FlowchartNode.where(flowchart_id: params[:id], deleted: false)
     flowchart = Flowchart.find_by(id: params[:id], deleted: false)
 
