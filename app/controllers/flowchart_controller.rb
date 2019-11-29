@@ -48,7 +48,7 @@ class FlowchartController < ApplicationController
     render json: @flowchart
   end
 
-  def all_flowcharts
+  def get_all_flowcharts
     @flowcharts = Flowchart.where(deleted: false)
     @flowcharts.each(&:calculate_and_set_max_height)
     render json: Flowchart.where(deleted: false)
@@ -79,7 +79,6 @@ class FlowchartController < ApplicationController
         current_node_id = queue.shift
         current_node = nodes_indexed_by_id[current_node_id]
 
-        p current_node
         if current_node[:child_id].nil?
           adjacency_list[current_node_id] = []
         else

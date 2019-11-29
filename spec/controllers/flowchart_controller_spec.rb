@@ -113,7 +113,7 @@ RSpec.describe FlowchartController, type: :controller do
 
   describe '.get all' do
     it 'renders all flowcharts' do
-      post :all_flowcharts
+      post :get_all_flowcharts
       res = JSON.parse(response.body)
       expect(res.size).to eq(1)
       # We created one initially in the before each. Anything created within a describe block gets cleaned up (ie from the create/delete tests)
