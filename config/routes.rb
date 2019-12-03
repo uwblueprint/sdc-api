@@ -16,4 +16,3 @@ Rails.application.routes.draw do
   put '/flowchart_node/:id', to: 'flowchart_node#update'
   delete '/flowchart_node/:id', to: 'flowchart_node#delete'
 end
-

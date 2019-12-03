@@ -64,4 +64,3 @@ class FlowchartNode < ApplicationRecord
     child&.child_delete
   end
 end
-
