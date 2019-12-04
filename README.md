@@ -73,6 +73,21 @@ SELECT * FROM questions;
 \d+ questions
 ```
 
+**Environment Variable Setup**
+```
+# remove .template from .env.development.local.template and fill in .env.development.local, example values:
+CORS_ORIGIN=http://localhost:3000
+SEED_USER_EMAIL=test@test.com
+SEED_USER_PASSWORD=password
+DEVISE_JWT_SECRET_KEY=super_secret_secret_key
+```
+
+**Authenticating Routes with Devise**
+```
+# This project includes Devise for auth, add this line before the resource to require a user to be logged in:
+before_action :authenticate_user!
+```
+
 **Run the dev server**
 
 ```
