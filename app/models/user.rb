@@ -12,7 +12,6 @@
 #  jti                :string           not null
 #
 
-
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
   devise :database_authenticatable, :validatable, :rememberable,

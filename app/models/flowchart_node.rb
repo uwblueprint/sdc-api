@@ -18,7 +18,6 @@
 #  deleted       :boolean          default(FALSE), not null
 #
 
-
 class FlowchartNode < ApplicationRecord
   belongs_to :flowchart
   validates :text, presence: true

@@ -14,7 +14,6 @@
 #  deleted     :boolean          default(FALSE), not null
 #
 
-
 class Flowchart < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true

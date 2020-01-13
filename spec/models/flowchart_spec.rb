@@ -14,7 +14,6 @@
 #  deleted     :boolean          default(FALSE), not null
 #
 
-
 require 'rails_helper'
 
 RSpec.describe Flowchart, type: :model do

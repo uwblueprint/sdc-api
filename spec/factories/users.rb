@@ -12,7 +12,6 @@
 #  jti                :string           not null
 #
 
-
 FactoryBot.define do
   factory :user do
   end

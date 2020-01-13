@@ -9,6 +9,5 @@
 #  updated_at :datetime         not null
 #
 
-
 class Question < ApplicationRecord
 end
