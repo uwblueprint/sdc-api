@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: flowcharts
+#
+#  id          :bigint           not null, primary key
+#  title       :string           not null
+#  description :string           not null
+#  height      :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  root_id     :bigint
+#  deleted     :boolean          default(FALSE), not null
+#
+
 class Flowchart < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true

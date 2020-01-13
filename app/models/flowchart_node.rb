@@ -1,5 +1,23 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: flowchart_nodes
+#
+#  id            :bigint           not null, primary key
+#  text          :string           not null
+#  header        :string           not null
+#  button_text   :string
+#  next_question :string
+#  child_id      :bigint
+#  sibling_id    :bigint
+#  is_root       :boolean          not null
+#  flowchart_id  :bigint           not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  deleted       :boolean          default(FALSE), not null
+#
+
 class FlowchartNode < ApplicationRecord
   belongs_to :flowchart
   validates :text, presence: true
