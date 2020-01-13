@@ -6,6 +6,8 @@ This is the web API portion of the Social Development Centre Project for [UW Blu
 
 This project was started in Fall 2019 and is currently in development.
 
+### Fall 2019 Team
+
 **Project Lead:** Daniel Williams - [@ddgwilli](https://github.com/ddgwilli)
 
 **Project Manager:** Leonard Zhang - [@leonardz](https://github.com/leonardz)
@@ -21,11 +23,29 @@ This project was started in Fall 2019 and is currently in development.
 * Megan Niu - [@meganniu](https://github.com/meganniu)
 * Jayant Shrivastava - [@jayshrivastava](https://github.com/jayshrivastava)
 
+### Winter 2020 Team
+
+**Project Lead:** Leon Ouyang - [@LeozMaxwellJilliams](https://github.com/LeozMaxwellJilliams)
+
+**Project Manager:** James Lu
+
+**Designer:** Brandon Law
+
+**Developers:**
+* Ainley Pena
+* Faizaan Madhani
+* Nim Wijetunga
+* Patrick Du
+* Stephanie Xu
+
+
 ## Development Setup
 
 **Environment Setup**
 
-Pull the repository and navigate into the project root. Make sure Ruby and Bundle are installed.
+Pull the repository and navigate into the project root. Make sure
+[Ruby](https://www.ruby-lang.org/en/documentation/installation/) and
+[Bundler](https://bundler.io) are installed.
 
 ```
 # install dependencies
@@ -46,7 +66,7 @@ docker pull postgres
 docker run -e POSTGRES_PASSWORD=sdcdev -p 5432:5432 -d postgres
 
 # init the database and sample data
-rake db:drop db:create db:migrate db:seed
+rails db:setup
 
 # FYI: This is how to list running docker containers (add -a to list all continers).
 docker ps
@@ -60,8 +80,9 @@ docker stop <container id>
 **Connecting to the Development DB** 
 ```
 # connect to docker container
+# find container name using `docker ps` (name is different from id)
 # password was set in the command to run the container above
-psql -h localhost -U postgres -d postgres
+docker exec -it <container name> psql -h localhost -U postgres -d postgres
 
 # go into the sdc database of the postgres server
 \c sdc
