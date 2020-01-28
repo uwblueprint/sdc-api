@@ -35,7 +35,7 @@
 
 class FlowchartNode < ApplicationRecord
   belongs_to :flowchart
-  belongs_to :parent, class_name: "FlowchartNode"
+  belongs_to :parent, class_name: 'FlowchartNode', optional: true
   validates :text, presence: true
   validates :header, presence: true
   validates :button_text, exclusion: { in: [''] }
