@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_021858) do
+ActiveRecord::Schema.define(version: 2020_01_28_015837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 2019_11_26_021858) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "deleted", default: false, null: false
+    t.bigint "flowchart_node_id"
     t.index ["child_id"], name: "index_flowchart_nodes_on_child_id"
     t.index ["flowchart_id"], name: "index_flowchart_nodes_on_flowchart_id"
+    t.index ["flowchart_node_id"], name: "index_flowchart_nodes_on_flowchart_node_id"
     t.index ["sibling_id"], name: "index_flowchart_nodes_on_sibling_id"
   end
 
@@ -58,6 +60,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_021858) do
     t.index ["jti"], name: "index_users_on_jti", unique: true
   end
 
+  add_foreign_key "flowchart_nodes", "flowchart_nodes"
   add_foreign_key "flowchart_nodes", "flowchart_nodes", column: "child_id"
   add_foreign_key "flowchart_nodes", "flowchart_nodes", column: "sibling_id"
   add_foreign_key "flowchart_nodes", "flowcharts"
