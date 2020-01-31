@@ -187,6 +187,7 @@ RSpec.describe FlowchartController, type: :controller do
         'flowchartnodes': {
           "1": {
             'button_text' => nil,
+            'flowchart_node_id' => nil,
             'child_id' => 10,
             'deleted' => false,
             'flowchart_id' => 1,
@@ -199,6 +200,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "10": {
             'button_text' => nil,
+            'flowchart_node_id' => nil,
             'child_id' => 7,
             'deleted' => false,
             'flowchart_id' => 1,
@@ -212,6 +214,7 @@ RSpec.describe FlowchartController, type: :controller do
           "2": {
             'button_text' => nil,
             'child_id' => nil,
+            'flowchart_node_id' => nil,
             'deleted' => false,
             'flowchart_id' => 1,
             'header' => 'l1',
@@ -223,6 +226,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "3": {
             'button_text' => nil,
+            'flowchart_node_id' => nil,
             'child_id' => nil,
             'deleted' => false,
             'flowchart_id' => 1,
@@ -235,6 +239,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "4": {
             'button_text' => nil,
+            'flowchart_node_id' => nil,
             'child_id' => nil,
             'deleted' => false,
             'flowchart_id' => 1,
@@ -247,6 +252,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "5": {
             'button_text' => nil,
+            'flowchart_node_id' => nil,
             'child_id' => nil,
             'deleted' => false,
             'flowchart_id' => 1,
@@ -259,6 +265,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "6": {
             'button_text' => nil,
+            'flowchart_node_id' => nil,
             'child_id' => 4,
             'deleted' => false,
             'flowchart_id' => 1,
@@ -271,6 +278,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "7": {
             'button_text' => nil,
+            'flowchart_node_id' => nil,
             'child_id' => 2,
             'deleted' => false,
             'flowchart_id' => 1,
@@ -283,6 +291,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "8": {
             'button_text' => nil,
+            'flowchart_node_id' => nil,
             'child_id' => 5,
             'deleted' => false,
             'flowchart_id' => 1,
@@ -295,6 +304,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "9": {
             'button_text' => nil,
+            'flowchart_node_id' => nil,
             'child_id' => 6,
             'deleted' => false,
             'flowchart_id' => 1,
