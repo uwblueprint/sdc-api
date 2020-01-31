@@ -5,13 +5,21 @@
 # Table name: flowcharts
 #
 #  id          :bigint           not null, primary key
-#  title       :string           not null
+#  deleted     :boolean          default(FALSE), not null
 #  description :string           not null
 #  height      :integer          not null
+#  title       :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  root_id     :bigint
-#  deleted     :boolean          default(FALSE), not null
+#
+# Indexes
+#
+#  index_flowcharts_on_root_id  (root_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (root_id => flowchart_nodes.id)
 #
 
 require 'rails_helper'

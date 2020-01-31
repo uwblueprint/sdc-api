@@ -4,22 +4,38 @@
 #
 # Table name: flowchart_nodes
 #
-#  id            :bigint           not null, primary key
-#  text          :string           not null
-#  header        :string           not null
-#  button_text   :string
-#  next_question :string
-#  child_id      :bigint
-#  sibling_id    :bigint
-#  is_root       :boolean          not null
-#  flowchart_id  :bigint           not null
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  deleted       :boolean          default(FALSE), not null
+#  id                :bigint           not null, primary key
+#  button_text       :string
+#  deleted           :boolean          default(FALSE), not null
+#  header            :string           not null
+#  is_root           :boolean          not null
+#  next_question     :string
+#  text              :string           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  child_id          :bigint
+#  flowchart_id      :bigint           not null
+#  flowchart_node_id :bigint
+#  sibling_id        :bigint
+#
+# Indexes
+#
+#  index_flowchart_nodes_on_child_id           (child_id)
+#  index_flowchart_nodes_on_flowchart_id       (flowchart_id)
+#  index_flowchart_nodes_on_flowchart_node_id  (flowchart_node_id)
+#  index_flowchart_nodes_on_sibling_id         (sibling_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (child_id => flowchart_nodes.id)
+#  fk_rails_...  (flowchart_id => flowcharts.id)
+#  fk_rails_...  (flowchart_node_id => flowchart_nodes.id)
+#  fk_rails_...  (sibling_id => flowchart_nodes.id)
 #
 
 class FlowchartNode < ApplicationRecord
   belongs_to :flowchart
+  belongs_to :parent, class_name: 'FlowchartNode', optional: true
   validates :text, presence: true
   validates :header, presence: true
   validates :button_text, exclusion: { in: [''] }
