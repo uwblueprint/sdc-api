@@ -46,6 +46,7 @@ class FlowchartNode < ApplicationRecord
   validates :flowchart_id, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, null: false
   validates :deleted, inclusion: { in: [true, false] }
 
+
   def swap(swap_id)
     node_b = FlowchartNode.find(swap_id)
 
@@ -88,7 +89,7 @@ class FlowchartNode < ApplicationRecord
     child_node&.child_delete
     self
   end
-
+  
   def child_delete
     self.deleted = true
     save!
@@ -97,4 +98,9 @@ class FlowchartNode < ApplicationRecord
     sibling&.child_delete
     child&.child_delete
   end
+
+  def children
+    children_nodes = FlowchartNode.where(flowchart_node_id: self.id).find_each
+  end
+  
 end

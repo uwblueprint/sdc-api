@@ -49,4 +49,5 @@ class FlowchartNodeController < ApplicationController
     delete_node&.delete
     render json: delete_node
   end
+
 end
