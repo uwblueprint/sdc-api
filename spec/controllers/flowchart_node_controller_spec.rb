@@ -113,14 +113,12 @@ RSpec.describe FlowchartNodeController, type: :controller do
     context 'when given a valid previous id' do
       it 'returns status code 200' do
         @params[:prev_id] = 4
-        @params[:is_child] = true
         post :create, params: @params
         expect(response.response_code).to eq(200)
       end
 
       it 'renders json of the newly created node' do
         @params[:prev_id] = 4
-        @params[:is_child] = true
         expected = {
           'text' => 'mock text',
           'header' => 'mock header',
@@ -155,7 +153,6 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'deleted' => false
         }
         @params[:prev_id] = 4
-        @params[:is_child] = true
         post :create, params: @params
         res = JSON.parse(response.body)
         new_node = FlowchartNode.find(res['id'])
@@ -165,7 +162,6 @@ RSpec.describe FlowchartNodeController, type: :controller do
       context 'when is_child is true' do
         it 'updates child_id of the parent node to the new node' do
           @params[:prev_id] = 3
-          @params[:is_child] = true
           post :create, params: @params
           res = JSON.parse(response.body)
           new_id = res['id']
@@ -175,7 +171,6 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
         it 'updates child_id of the new node to the child_id of the parent' do
           @params[:prev_id] = 3
-          @params[:is_child] = true
           parent_node = FlowchartNode.find(3)
           post :create, params: @params
           res = JSON.parse(response.body)
@@ -186,7 +181,6 @@ RSpec.describe FlowchartNodeController, type: :controller do
       context 'when is_child is false' do
         it 'updates sibling_id of the previous node to the new node' do
           @params[:prev_id] = 3
-          @params[:is_child] = false
           post :create, params: @params
           res = JSON.parse(response.body)
           new_id = res['id']
@@ -196,7 +190,6 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
         it 'updates sibling_id of the new node to the sibling_id of the previous' do
           @params[:prev_id] = 3
-          @params[:is_child] = false
           parent_node = FlowchartNode.find(3)
           post :create, params: @params
           res = JSON.parse(response.body)
@@ -208,7 +201,6 @@ RSpec.describe FlowchartNodeController, type: :controller do
     context 'when given an invalid previous id' do
       before(:each) do
         @params[:prev_id] = 100
-        @params[:is_child] = true
       end
 
       it 'throws a record not found error' do
@@ -221,7 +213,6 @@ RSpec.describe FlowchartNodeController, type: :controller do
     context 'when given an invalid body' do
       before(:each) do
         @params[:prev_id] = 3
-        @params[:is_child] = true
         @params[:node][:text] = nil
       end
 
