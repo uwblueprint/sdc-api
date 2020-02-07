@@ -21,6 +21,12 @@ class FlowchartNodeController < ApplicationController
     render json: node
   end
 
+  def children
+    node = FlowchartNode.find(params[:id])
+    node_children = node.children
+    render json: node_children
+  end
+
   def update
     flowchart_node = FlowchartNode.find(params[:id])
     flowchart_node.update!(params[:node].permit(:text, :header, :button_text, :next_question))
