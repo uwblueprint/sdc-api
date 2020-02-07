@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   delete '/flowchart/:id', to: 'flowchart#delete'
 
   get '/flowchart_node/:id', to: 'flowchart_node#show'
+  get '/flowchart_node/:id/parent', to: 'flowchart_node#parent'
   get '/flowchart_node/:id/children', to: 'flowchart_node#children'
   post '/flowchart_node', to: 'flowchart_node#create'
   put '/flowchart_node/swap', to: 'flowchart_node#swap'
