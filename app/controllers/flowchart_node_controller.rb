@@ -3,8 +3,6 @@
 class FlowchartNodeController < ApplicationController
   def create
     prev_id = params[:prev_id]
-    is_child = params[:is_child]
-
     prev_node = FlowchartNode.find(prev_id)
 
     new_node = FlowchartNode.new(params[:node].permit(:text, :header, :button_text, :next_question))
@@ -12,16 +10,8 @@ class FlowchartNodeController < ApplicationController
     new_node.flowchart_id = prev_node.flowchart_id
 
     ActiveRecord::Base.transaction do
+      new_node.flowchart_node_id = prev_node.id
       new_node.save!
-      if is_child == 'true'
-        new_node.child_id = prev_node.child_id
-        prev_node.child_id = new_node.id
-      else
-        new_node.sibling_id = prev_node.sibling_id
-        prev_node.sibling_id = new_node.id
-      end
-      new_node.save!
-      prev_node.save!
     end
     render json: new_node
   end
@@ -29,6 +19,12 @@ class FlowchartNodeController < ApplicationController
   def show
     node = FlowchartNode.find(params[:id])
     render json: node
+  end
+
+  def children
+    node = FlowchartNode.find(params[:id])
+    node_children = node.children
+    render json: node_children
   end
 
   def update

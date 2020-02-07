@@ -97,4 +97,8 @@ class FlowchartNode < ApplicationRecord
     sibling&.child_delete
     child&.child_delete
   end
+
+  def children
+    FlowchartNode.where(flowchart_node_id: id).find_each
+  end
 end

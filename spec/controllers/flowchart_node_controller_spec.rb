@@ -113,18 +113,16 @@ RSpec.describe FlowchartNodeController, type: :controller do
     context 'when given a valid previous id' do
       it 'returns status code 200' do
         @params[:prev_id] = 4
-        @params[:is_child] = true
         post :create, params: @params
         expect(response.response_code).to eq(200)
       end
 
       it 'renders json of the newly created node' do
         @params[:prev_id] = 4
-        @params[:is_child] = true
         expected = {
           'text' => 'mock text',
           'header' => 'mock header',
-          'flowchart_node_id' => nil,
+          'flowchart_node_id' => 4,
           'button_text' => 'mock button text',
           'next_question' => 'mock next question',
           'child_id' => nil,
@@ -146,7 +144,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'text' => 'mock text',
           'header' => 'mock header',
           'button_text' => 'mock button text',
-          'flowchart_node_id' => nil,
+          'flowchart_node_id' => 4,
           'next_question' => 'mock next question',
           'child_id' => nil,
           'sibling_id' => nil,
@@ -155,60 +153,16 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'deleted' => false
         }
         @params[:prev_id] = 4
-        @params[:is_child] = true
         post :create, params: @params
         res = JSON.parse(response.body)
         new_node = FlowchartNode.find(res['id'])
         expect(new_node.attributes.except(*@exclude_keys, 'id')).to eq(expected)
-      end
-
-      context 'when is_child is true' do
-        it 'updates child_id of the parent node to the new node' do
-          @params[:prev_id] = 3
-          @params[:is_child] = true
-          post :create, params: @params
-          res = JSON.parse(response.body)
-          new_id = res['id']
-          parent_node = FlowchartNode.find(3)
-          expect(parent_node.child_id).to be new_id
-        end
-
-        it 'updates child_id of the new node to the child_id of the parent' do
-          @params[:prev_id] = 3
-          @params[:is_child] = true
-          parent_node = FlowchartNode.find(3)
-          post :create, params: @params
-          res = JSON.parse(response.body)
-          expect(res['child_id']).to be parent_node.child_id
-        end
-      end
-
-      context 'when is_child is false' do
-        it 'updates sibling_id of the previous node to the new node' do
-          @params[:prev_id] = 3
-          @params[:is_child] = false
-          post :create, params: @params
-          res = JSON.parse(response.body)
-          new_id = res['id']
-          parent_node = FlowchartNode.find(3)
-          expect(parent_node.sibling_id).to be new_id
-        end
-
-        it 'updates sibling_id of the new node to the sibling_id of the previous' do
-          @params[:prev_id] = 3
-          @params[:is_child] = false
-          parent_node = FlowchartNode.find(3)
-          post :create, params: @params
-          res = JSON.parse(response.body)
-          expect(res['sibling_id']).to be parent_node.sibling_id
-        end
       end
     end
 
     context 'when given an invalid previous id' do
       before(:each) do
         @params[:prev_id] = 100
-        @params[:is_child] = true
       end
 
       it 'throws a record not found error' do
@@ -221,7 +175,6 @@ RSpec.describe FlowchartNodeController, type: :controller do
     context 'when given an invalid body' do
       before(:each) do
         @params[:prev_id] = 3
-        @params[:is_child] = true
         @params[:node][:text] = nil
       end
 
