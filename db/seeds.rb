@@ -31,6 +31,24 @@ when 'development'
     flowchart_id: flowchart.id,
     flowchart_node_id: 1
   )
+  node3 = FlowchartNode.create!(
+    text: 'Node text 3',
+    header: 'Node header 3',
+    button_text: 'Button text 3',
+    next_question: 'Next question 3',
+    is_root: false,
+    flowchart_id: flowchart.id,
+    flowchart_node_id: 2
+  )
+  node4 = FlowchartNode.create!(
+    text: 'Node text 4',
+    header: 'Node header 4',
+    button_text: 'Button text 4',
+    next_question: 'Next question 4',
+    is_root: false,
+    flowchart_id: flowchart.id,
+    flowchart_node_id: 2
+  )
 
   # set foreign keys
   flowchart[:root_id] = node1.id
