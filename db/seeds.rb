@@ -19,7 +19,8 @@ when 'development'
     button_text: 'Button text 1',
     next_question: 'Next question 1',
     is_root: true,
-    flowchart_id: flowchart.id
+    flowchart_id: flowchart.id,
+    flowchart_node_id: nil
   )
   node2 = FlowchartNode.create!(
     text: 'Node text 2',
@@ -27,7 +28,8 @@ when 'development'
     button_text: 'Button text 2',
     next_question: 'Next question 2',
     is_root: false,
-    flowchart_id: flowchart.id
+    flowchart_id: flowchart.id,
+    flowchart_node_id: 1
   )
 
   # set foreign keys
