@@ -27,6 +27,17 @@ class FlowchartNodeController < ApplicationController
     render json: parent_node
   end
 
+  def parents
+    node = FlowchartNode.find(params[:id])
+    ary = []
+    until node.is_root
+      parent_node = FlowchartNode.find(node.flowchart_node_id)
+      ary.unshift(parent_node)
+      node = parent_node
+    end
+    render json: ary
+  end
+
   def children
     node = FlowchartNode.find(params[:id])
     node_children = node.children
