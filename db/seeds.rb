@@ -77,4 +77,9 @@ when 'development'
   # write changes
   flowchart.save!
   node1.save!
+  node2.save!
+  node3.save!
+  node4.save!
+  node5.save!
+  node6.save!
 end
