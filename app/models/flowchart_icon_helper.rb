@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: flowchart_icon_helpers
@@ -10,6 +12,6 @@
 #
 
 class FlowchartIconHelper < ApplicationRecord
-    belongs_to :flowchart_node
-    belongs_to :flowchart_icon
+  belongs_to :flowchart_node
+  belongs_to :flowchart_icon
 end

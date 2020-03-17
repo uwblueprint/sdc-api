@@ -10,16 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_13_000653) do
+ActiveRecord::Schema.define(version: 2020_03_06_013459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "flowchart_icon_helpers", force: :cascade do |t|
+    t.bigint "flowchart_node_id"
+    t.bigint "flowchart_icon_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "flowchart_icon_id"
-    t.integer "flowchart_node_id"
+    t.index ["flowchart_icon_id"], name: "index_flowchart_icon_helpers_on_flowchart_icon_id"
+    t.index ["flowchart_node_id"], name: "index_flowchart_icon_helpers_on_flowchart_node_id"
   end
 
   create_table "flowchart_icons", force: :cascade do |t|

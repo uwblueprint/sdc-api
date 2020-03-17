@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateFlowchartIconHelpers < ActiveRecord::Migration[6.0]
   def change
     create_table :flowchart_icon_helpers do |t|

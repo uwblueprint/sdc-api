@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: flowchart_icons
@@ -9,6 +11,6 @@
 #
 
 class FlowchartIcon < ApplicationRecord
-    has_many :flowchart_icon_helpers
-    has_many :flowchart_node, :through => :flowchart_icon_helpers
+  has_many :flowchart_icon_helpers
+  has_many :flowchart_node, through: :flowchart_icon_helpers
 end

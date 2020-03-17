@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: flowchart_icon_helpers
@@ -11,6 +13,5 @@
 
 FactoryBot.define do
   factory :flowchart_icon_helper do
-    
   end
 end

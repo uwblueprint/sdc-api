@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: flowchart_icons
@@ -10,6 +12,6 @@
 
 FactoryBot.define do
   factory :flowchart_icon do
-    url { "MyString" }
+    url { 'MyString' }
   end
 end
