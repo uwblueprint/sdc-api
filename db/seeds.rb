@@ -38,7 +38,8 @@ when 'development'
     next_question: 'Next question 3',
     is_root: false,
     flowchart_id: flowchart.id,
-    flowchart_node_id: 2
+    flowchart_node_id: 2,
+    is_leaf: true
   )
   node4 = FlowchartNode.create!(
     text: 'Node text 4',
@@ -57,7 +58,8 @@ when 'development'
     next_question: 'Next question 5',
     is_root: false,
     flowchart_id: flowchart.id,
-    flowchart_node_id: 4
+    flowchart_node_id: 4,
+    is_leaf: true
   )
 
   node6 = FlowchartNode.create!(
@@ -67,7 +69,8 @@ when 'development'
     next_question: 'Next question 6',
     is_root: false,
     flowchart_id: flowchart.id,
-    flowchart_node_id: 4
+    flowchart_node_id: 4,
+    is_leaf: true
   )
 
   # set foreign keys

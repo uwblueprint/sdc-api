@@ -194,6 +194,7 @@ RSpec.describe FlowchartController, type: :controller do
             'header' => 'Insert Header',
             'id' => 1,
             'is_root' => true,
+            'is_leaf': false,
             'next_question' => nil,
             'sibling_id' => nil,
             'text' => 'Insert Text'
@@ -207,6 +208,7 @@ RSpec.describe FlowchartController, type: :controller do
             'header' => 'n1',
             'id' => 10,
             'is_root' => false,
+            'is_leaf': false,
             'next_question' => nil,
             'sibling_id' => 9,
             'text' => 'n1'
@@ -220,6 +222,7 @@ RSpec.describe FlowchartController, type: :controller do
             'header' => 'l1',
             'id' => 2,
             'is_root' => false,
+            'is_leaf': false,
             'next_question' => nil,
             'sibling_id' => nil,
             'text' => 'l1'
@@ -233,6 +236,7 @@ RSpec.describe FlowchartController, type: :controller do
             'header' => 'l3',
             'id' => 3,
             'is_root' => false,
+            'is_leaf': false,
             'next_question' => nil,
             'sibling_id' => nil,
             'text' => 'l3'
@@ -246,6 +250,7 @@ RSpec.describe FlowchartController, type: :controller do
             'header' => 'l2',
             'id' => 4,
             'is_root' => false,
+            'is_leaf': false,
             'next_question' => nil,
             'sibling_id' => 3,
             'text' => 'l2'
@@ -259,6 +264,7 @@ RSpec.describe FlowchartController, type: :controller do
             'header' => 'm3',
             'id' => 5,
             'is_root' => false,
+            'is_leaf': false,
             'next_question' => nil,
             'sibling_id' => nil,
             'text' => 'm3'
@@ -272,6 +278,7 @@ RSpec.describe FlowchartController, type: :controller do
             'header' => 'm2',
             'id' => 6,
             'is_root' => false,
+            'is_leaf': false,
             'next_question' => nil,
             'sibling_id' => nil,
             'text' => 'm2'
@@ -285,6 +292,7 @@ RSpec.describe FlowchartController, type: :controller do
             'header' => 'm1',
             'id' => 7,
             'is_root' => false,
+            'is_leaf': false,
             'next_question' => nil,
             'sibling_id' => nil,
             'text' => 'm1'
@@ -298,6 +306,7 @@ RSpec.describe FlowchartController, type: :controller do
             'header' => 'n3',
             'id' => 8,
             'is_root' => false,
+            'is_leaf': false,
             'next_question' => nil,
             'sibling_id' => nil,
             'text' => 'n3'
@@ -311,6 +320,7 @@ RSpec.describe FlowchartController, type: :controller do
             'header' => 'n2',
             'id' => 9,
             'is_root' => false,
+            'is_leaf': false,
             'next_question' => nil,
             'sibling_id' => 8,
             'text' => 'n2'
