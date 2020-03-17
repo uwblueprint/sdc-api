@@ -49,6 +49,9 @@ when 'development'
     flowchart_id: flowchart.id,
     flowchart_node_id: 2
   )
+  icon = FlowchartIcon.create!(
+    url: "https://sdc-icon-bucket.s3.us-east-2.amazonaws.com/Health+and+Safety/fire-emoji.png"
+  )
 
   # set foreign keys
   flowchart[:root_id] = node1.id
