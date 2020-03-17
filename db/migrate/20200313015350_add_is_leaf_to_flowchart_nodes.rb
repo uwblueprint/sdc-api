@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddIsLeafToFlowchartNodes < ActiveRecord::Migration[6.0]
   def change
     add_column :flowchart_nodes, :is_leaf, :boolean, default: false
