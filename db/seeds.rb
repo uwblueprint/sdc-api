@@ -38,7 +38,8 @@ when 'development'
     next_question: 'Next question 3',
     is_root: false,
     flowchart_id: flowchart.id,
-    flowchart_node_id: 2
+    flowchart_node_id: 2,
+    is_leaf: true
   )
   node4 = FlowchartNode.create!(
     text: 'Node text 4',
