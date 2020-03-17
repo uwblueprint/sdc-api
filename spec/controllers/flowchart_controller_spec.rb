@@ -182,7 +182,7 @@ RSpec.describe FlowchartController, type: :controller do
           'description': 'this chart is about abc',
           'height': 3,
           'root_id': 1,
-          'deleted': false, 
+          'deleted': false
         },
         'flowchartnodes': {
           "1": {

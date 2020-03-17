@@ -294,7 +294,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'child_id' => nil,
             'sibling_id' => 4,
             'is_root' => false,
-            'is_leaf'=> false,
+            'is_leaf' => false,
             'flowchart_id' => 100,
             'deleted' => false
           },
