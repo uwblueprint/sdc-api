@@ -128,6 +128,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'child_id' => nil,
           'sibling_id' => nil,
           'is_root' => false,
+          'is_leaf' => false,
           'flowchart_id' => 100,
           'deleted' => false
         }
@@ -148,6 +149,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'next_question' => 'mock next question',
           'child_id' => nil,
           'sibling_id' => nil,
+          'is_leaf' => false,
           'is_root' => false,
           'flowchart_id' => 100,
           'deleted' => false
@@ -292,6 +294,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'child_id' => nil,
             'sibling_id' => 4,
             'is_root' => false,
+            'is_leaf'=> false,
             'flowchart_id' => 100,
             'deleted' => false
           },
@@ -305,6 +308,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'child_id' => 6,
             'sibling_id' => 5,
             'is_root' => false,
+            'is_leaf' => false,
             'flowchart_id' => 100,
             'deleted' => false
           }
