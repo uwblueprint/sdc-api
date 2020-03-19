@@ -3,6 +3,8 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.hosts = "warm-hollows-93227.herokuapp.com"
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
