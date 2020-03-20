@@ -14,7 +14,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       next_question: 'hhhh',
       is_root: false,
       flowchart_id: 100,
-      deleted: false,
+      deleted: false
     )
     @node7 = FlowchartNode.create(
       id: 7,
@@ -24,7 +24,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       next_question: 'gggg',
       is_root: false,
       flowchart_id: 100,
-      deleted: false,
+      deleted: false
     )
     @node6 = FlowchartNode.create(
       id: 6,
@@ -36,7 +36,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       sibling_id: 7,
       is_root: false,
       flowchart_id: 100,
-      deleted: false,
+      deleted: false
     )
     @node5 = FlowchartNode.create(
       id: 5,
@@ -46,7 +46,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       next_question: 'eeee',
       is_root: false,
       flowchart_id: 100,
-      deleted: false,
+      deleted: false
     )
     @node4 = FlowchartNode.create(
       id: 4,
@@ -57,7 +57,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       sibling_id: 5,
       is_root: false,
       flowchart_id: 100,
-      deleted: false,
+      deleted: false
     )
     @node3 = FlowchartNode.create(
       id: 3,
@@ -69,7 +69,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       sibling_id: 4,
       is_root: false,
       flowchart_id: 100,
-      deleted: false,
+      deleted: false
     )
     @node2 = FlowchartNode.create(
       id: 2,
@@ -80,7 +80,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       child_id: 3,
       is_root: false,
       flowchart_id: 100,
-      deleted: false,
+      deleted: false
     )
     @node1 = FlowchartNode.create(
       id: 1,
@@ -91,7 +91,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
       child_id: 2,
       is_root: true,
       flowchart_id: 100,
-      deleted: false,
+      deleted: false
     )
     # The primary key sequence isn't being updated properly in the test database, this line corrects the sequence
     ActiveRecord::Base.connection.reset_pk_sequence!('flowchart_nodes')
@@ -129,7 +129,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'sibling_id' => nil,
           'is_root' => false,
           'flowchart_id' => 100,
-          'deleted' => false,
+          'deleted' => false
         }
         post :create, params: @params
         res = JSON.parse(response.body)
@@ -150,7 +150,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'sibling_id' => nil,
           'is_root' => false,
           'flowchart_id' => 100,
-          'deleted' => false,
+          'deleted' => false
         }
         @params[:prev_id] = 4
         post :create, params: @params
@@ -198,8 +198,8 @@ RSpec.describe FlowchartNodeController, type: :controller do
         # node = @node1.as_json
         # node["icons"] = []
         expected_node = {}
-        expected_node["node"] = @node1.as_json
-        expected_node["icons"] = []
+        expected_node['node'] = @node1.as_json
+        expected_node['icons'] = []
         expect(response.body).to eq(expected_node.to_json)
       end
     end
@@ -298,7 +298,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'sibling_id' => 4,
             'is_root' => false,
             'flowchart_id' => 100,
-            'deleted' => false,
+            'deleted' => false
           },
           'new_b' => {
             'id' => 4,
@@ -311,7 +311,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'sibling_id' => 5,
             'is_root' => false,
             'flowchart_id' => 100,
-            'deleted' => false,
+            'deleted' => false
           }
         }
       end
