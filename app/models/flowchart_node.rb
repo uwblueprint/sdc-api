@@ -8,6 +8,7 @@
 #  button_text       :string
 #  deleted           :boolean          default(FALSE), not null
 #  header            :string           not null
+#  is_leaf           :boolean          default(FALSE), not null
 #  is_root           :boolean          not null
 #  next_question     :string
 #  text              :string           not null
