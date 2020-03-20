@@ -38,7 +38,8 @@ when 'development'
     next_question: 'Next question 3',
     is_root: false,
     flowchart_id: flowchart.id,
-    flowchart_node_id: 2
+    flowchart_node_id: 2,
+    is_leaf: true
   )
   node4 = FlowchartNode.create!(
     text: 'Node text 4',
@@ -56,6 +57,26 @@ when 'development'
     flowchart_icon_id: 1,
     flowchart_node_id: 1
   )
+  node5 = FlowchartNode.create!(
+    text: 'Node text 5',
+    header: 'Node header 5',
+    button_text: 'Button text 5',
+    next_question: 'Next question 5',
+    is_root: false,
+    flowchart_id: flowchart.id,
+    flowchart_node_id: 4,
+    is_leaf: true
+  )
+  node6 = FlowchartNode.create!(
+    text: 'Node text 6',
+    header: 'Node header 6',
+    button_text: 'Button text 6',
+    next_question: 'Next question 6',
+    is_root: false,
+    flowchart_id: flowchart.id,
+    flowchart_node_id: 4,
+    is_leaf: true
+  )
 
   # set foreign keys
   flowchart[:root_id] = node1.id
@@ -68,4 +89,9 @@ when 'development'
   node1.save!
   icons.save!
   icon_helper.save!
+  node2.save!
+  node3.save!
+  node4.save!
+  node5.save!
+  node6.save!
 end
