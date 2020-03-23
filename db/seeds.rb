@@ -3,11 +3,11 @@
 case Rails.env
 when 'development'
   # create seed data
-  User.create!(
-    email: ENV['SEED_USER_EMAIL'],
-    password: ENV['SEED_USER_PASSWORD'],
-    jti: SecureRandom.uuid
-  )
+  # User.create!(
+  #   email: ENV['SEED_USER_EMAIL'],
+  #   password: ENV['SEED_USER_PASSWORD'],
+  #   jti: SecureRandom.uuid
+  # )
   flowchart = Flowchart.create!(
     title: 'Flow Chart!!!!',
     description: 'this is an awesome flowchart',
@@ -83,3 +83,4 @@ when 'development'
   node5.save!
   node6.save!
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

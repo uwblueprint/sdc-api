@@ -23,6 +23,9 @@
 #
 
 class Flowchart < ApplicationRecord
+  has_many :flowchart_nodes
+  # attr_accessible :flowchart_nodes_attributes
+  accepts_nested_attributes_for :flowchart_nodes, :allow_destroy => true
   validates :title, presence: true
   validates :description, presence: true
   validates :height, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, presence: true

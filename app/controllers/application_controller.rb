@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class ApplicationController < ActionController::API
-  respond_to :json
+class ApplicationController < ActionController::Base
+  respond_to :json, :html
   def render_resource(resource)
     if resource.errors.empty?
       render json: resource

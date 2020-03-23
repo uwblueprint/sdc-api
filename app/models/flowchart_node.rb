@@ -35,7 +35,7 @@
 
 class FlowchartNode < ApplicationRecord
   belongs_to :flowchart
-  belongs_to :parent, class_name: 'FlowchartNode', optional: true
+  belongs_to :parent, class_name: 'FlowchartNode', optional: true, foreign_key: 'flowchart_node_id'
   validates :text, presence: true
   validates :header, presence: true
   validates :button_text, exclusion: { in: [''] }
@@ -100,5 +100,9 @@ class FlowchartNode < ApplicationRecord
 
   def children
     FlowchartNode.where(flowchart_node_id: id).find_each
+  end
+
+  def display_name
+    header
   end
 end
