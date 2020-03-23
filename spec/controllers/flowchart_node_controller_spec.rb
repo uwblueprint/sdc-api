@@ -128,6 +128,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'child_id' => nil,
           'sibling_id' => nil,
           'is_root' => false,
+          'is_leaf' => false,
           'flowchart_id' => 100,
           'deleted' => false
         }
@@ -148,6 +149,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'next_question' => 'mock next question',
           'child_id' => nil,
           'sibling_id' => nil,
+          'is_leaf' => false,
           'is_root' => false,
           'flowchart_id' => 100,
           'deleted' => false
@@ -195,7 +197,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
       it 'renders the correct json' do
         get :show, params: { id: 1 }
-        expect(response.body).to eq(@node1.to_json)
+        expected_node = {}
+        expected_node['node'] = @node1.as_json
+        expected_node['icons'] = []
+        expect(response.body).to eq(expected_node.to_json)
       end
     end
 
@@ -292,6 +297,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'child_id' => nil,
             'sibling_id' => 4,
             'is_root' => false,
+            'is_leaf' => false,
             'flowchart_id' => 100,
             'deleted' => false
           },
@@ -305,6 +311,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'child_id' => 6,
             'sibling_id' => 5,
             'is_root' => false,
+            'is_leaf' => false,
             'flowchart_id' => 100,
             'deleted' => false
           }

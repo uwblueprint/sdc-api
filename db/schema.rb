@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_28_015837) do
+ActiveRecord::Schema.define(version: 2020_03_13_015350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "flowchart_icon_helpers", force: :cascade do |t|
+    t.bigint "flowchart_node_id"
+    t.bigint "flowchart_icon_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["flowchart_icon_id"], name: "index_flowchart_icon_helpers_on_flowchart_icon_id"
+    t.index ["flowchart_node_id"], name: "index_flowchart_icon_helpers_on_flowchart_node_id"
+  end
+
+  create_table "flowchart_icons", force: :cascade do |t|
+    t.string "url", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "flowchart_nodes", force: :cascade do |t|
     t.string "text", null: false
@@ -28,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_01_28_015837) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "deleted", default: false, null: false
     t.bigint "flowchart_node_id"
+    t.boolean "is_leaf", default: false, null: false
     t.index ["child_id"], name: "index_flowchart_nodes_on_child_id"
     t.index ["flowchart_id"], name: "index_flowchart_nodes_on_flowchart_id"
     t.index ["flowchart_node_id"], name: "index_flowchart_nodes_on_flowchart_node_id"
