@@ -37,6 +37,8 @@
 class FlowchartNode < ApplicationRecord
   belongs_to :flowchart
   belongs_to :parent, class_name: 'FlowchartNode', optional: true
+  has_many :flowchart_icon_helpers
+  has_many :flowchart_icons, through: :flowchart_icon_helpers
   validates :text, presence: true
   validates :header, presence: true
   validates :button_text, exclusion: { in: [''] }

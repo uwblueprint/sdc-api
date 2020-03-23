@@ -197,7 +197,10 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
       it 'renders the correct json' do
         get :show, params: { id: 1 }
-        expect(response.body).to eq(@node1.to_json)
+        expected_node = {}
+        expected_node['node'] = @node1.as_json
+        expected_node['icons'] = []
+        expect(response.body).to eq(expected_node.to_json)
       end
     end
 

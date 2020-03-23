@@ -50,7 +50,13 @@ when 'development'
     flowchart_id: flowchart.id,
     flowchart_node_id: 2
   )
-
+  icons = FlowchartIcon.create!(
+    url: 'https://sdc-icon-bucket.s3.us-east-2.amazonaws.com/Health+and+Safety/fire-emoji.png'
+  )
+  icon_helper = FlowchartIconHelper.create!(
+    flowchart_icon_id: 1,
+    flowchart_node_id: 1
+  )
   node5 = FlowchartNode.create!(
     text: 'Node text 5',
     header: 'Node header 5',
@@ -61,7 +67,6 @@ when 'development'
     flowchart_node_id: 4,
     is_leaf: true
   )
-
   node6 = FlowchartNode.create!(
     text: 'Node text 6',
     header: 'Node header 6',
@@ -76,10 +81,14 @@ when 'development'
   # set foreign keys
   flowchart[:root_id] = node1.id
   node1[:child_id] = node2.id
+  node2[:child_id] = node3.id
+  node2[:child_id] = node4.id
 
   # write changes
   flowchart.save!
   node1.save!
+  icons.save!
+  icon_helper.save!
   node2.save!
   node3.save!
   node4.save!

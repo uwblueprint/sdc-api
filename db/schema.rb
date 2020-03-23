@@ -15,6 +15,21 @@ ActiveRecord::Schema.define(version: 2020_03_13_015350) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "flowchart_icon_helpers", force: :cascade do |t|
+    t.bigint "flowchart_node_id"
+    t.bigint "flowchart_icon_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["flowchart_icon_id"], name: "index_flowchart_icon_helpers_on_flowchart_icon_id"
+    t.index ["flowchart_node_id"], name: "index_flowchart_icon_helpers_on_flowchart_node_id"
+  end
+
+  create_table "flowchart_icons", force: :cascade do |t|
+    t.string "url", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "flowchart_nodes", force: :cascade do |t|
     t.string "text", null: false
     t.string "header", null: false
