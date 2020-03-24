@@ -8,9 +8,16 @@ ActiveAdmin.register FlowchartNode do
   belongs_to :flowchart
   # belongs_to :flowchart_node_id, class_name: 'FlowchartNode', optional: true
   # belongs_to :parent, class_name: 'FlowchartNode', optional: true
-  permit_params :text, :header, :button_text, :next_question, :is_root, :flowchart_id, :deleted, :flowchart_node_id
+  permit_params :id, :text, :header, :button_text, :next_question, :is_root, :flowchart_id, :deleted, :flowchart_node_id
   # navigation_menu :default
   # menu false
+
+  controller do
+    def permitted_params
+      params.permit :authenticity_token, :commit, flowchart_node: [:id, :text, :header, :button_text, :next_question, :is_root, :flowchart_id, :flowchart_node_id, :deleted,
+        flowchart_icon_helpers_attributes: [:id, :flowchart_icon_id, :flowchart_node_id, :_destroy]]
+    end
+  end
   
   form do |f|
     f.inputs "Node Details" do

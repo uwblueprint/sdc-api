@@ -7,7 +7,7 @@ ActiveAdmin.register Flowchart do
   #
   sidebar "Flowchart Details", only: [:show, :edit] do
     ul do
-      li link_to "Flowchart nodes", admin_flowchart_flowchart_nodes_path(resource)
+      li link_to "Flowchart Nodes", admin_flowchart_flowchart_nodes_path(resource)
     end
   end
 
