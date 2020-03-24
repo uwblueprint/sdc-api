@@ -8,6 +8,7 @@
 #  button_text       :string
 #  deleted           :boolean          default(FALSE), not null
 #  header            :string           not null
+#  is_leaf           :boolean          default(FALSE), not null
 #  is_root           :boolean          not null
 #  next_question     :string
 #  text              :string           not null
@@ -35,7 +36,9 @@
 
 class FlowchartNode < ApplicationRecord
   belongs_to :flowchart
-  belongs_to :parent, class_name: 'FlowchartNode', optional: true, foreign_key: 'flowchart_node_id'
+  belongs_to :parent, class_name: 'FlowchartNode', optional: true
+  has_many :flowchart_icon_helpers
+  has_many :flowchart_icons, through: :flowchart_icon_helpers
   validates :text, presence: true
   validates :header, presence: true
   validates :button_text, exclusion: { in: [''] }

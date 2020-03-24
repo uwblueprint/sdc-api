@@ -11,13 +11,13 @@ ActiveAdmin.register Flowchart do
   #   end
   # end
 
-  permit_params :title, :description, :root_id,
-    flowchart_node_attributes: [:id, :text, :header, :button_text, :next_question, :child_id, :is_root, :flowchart_id, :_destroy]
+  permit_params :id, :title, :description, :root_id, :created_at, :updated_at, :deleted, :height,
+    flowchart_node_attributes: [:id, :text, :header, :button_text, :next_question, :child_id, :sibling_id, :is_root, :flowchart_id, :flowchart_node_id, :deleted, :_destroy]
     
     controller do
       def permitted_params
-        params.permit flowchart: [:title, :description, :height, :root_id, :deleted,
-        flowchart_nodes_attributes: [:id, :text, :header, :button_text, :next_question, :child_id, :is_root, :flowchart_id, :_destroy]]
+        params.permit :authenticity_token, :commit, flowchart: [:id, :title, :description, :root_id, :created_at, :updated_at, :deleted, :height,
+        flowchart_nodes_attributes: [:id, :text, :header, :button_text, :next_question, :is_root, :flowchart_id, :flowchart_node_id, :deleted, :_destroy]]
       end
     end
 
@@ -25,6 +25,8 @@ ActiveAdmin.register Flowchart do
     f.inputs "Details" do
       f.input :title, label: "Flowchart title"
       f.input :description, label: "Description"
+      f.hidden_field :height, value: 1
+      # f.input :height, label: "Height"
       # f.input :root_id, label: "Root Node ID" # make it so that this works with the nodes table?
     end
 

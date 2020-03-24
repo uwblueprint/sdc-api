@@ -5,10 +5,11 @@ ActiveAdmin.register FlowchartNode do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  belongs_to :flowchart
+  belongs_to :flowchart, optional: true
+  # belongs_to :flowchart_node_id, class_name: 'FlowchartNode', optional: true
   # belongs_to :parent, class_name: 'FlowchartNode', optional: true
-  permit_params :text, :header, :button_text, :next_question, :is_root, :flowchart_id, :deleted
-  navigation_menu :flowchart
+  permit_params :text, :header, :button_text, :next_question, :is_root, :flowchart_id, :deleted, :flowchart_node_id
+  # navigation_menu :flowchart
   #
   # or
   #
