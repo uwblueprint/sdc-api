@@ -5,19 +5,21 @@ ActiveAdmin.register Flowchart do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # sidebar "Flowchart Details", only: [:show, :edit] do
-  #   ul do
-  #     li link_to "Flowchart nodes", admin_project_tickets_path(resource)
-  #   end
-  # end
+  sidebar "Flowchart Details", only: [:show, :edit] do
+    ul do
+      li link_to "Flowchart nodes", admin_flowchart_flowchart_nodes_path(resource)
+    end
+  end
 
   permit_params :id, :title, :description, :root_id, :created_at, :updated_at, :deleted, :height,
-    flowchart_node_attributes: [:id, :text, :header, :button_text, :next_question, :child_id, :sibling_id, :is_root, :flowchart_id, :flowchart_node_id, :deleted, :_destroy]
+    flowchart_node_attributes: [:id, :text, :header, :button_text, :next_question, :child_id, :sibling_id, :is_root, :flowchart_id, :flowchart_node_id, :deleted, :_destroy,
+      flowchart_icon_helpers_attributes: [:id, :flowchart_icon_id, :flowchart_node_id, :_destroy]]
     
     controller do
       def permitted_params
         params.permit :authenticity_token, :commit, flowchart: [:id, :title, :description, :root_id, :created_at, :updated_at, :deleted, :height,
-        flowchart_nodes_attributes: [:id, :text, :header, :button_text, :next_question, :is_root, :flowchart_id, :flowchart_node_id, :deleted, :_destroy]]
+        flowchart_nodes_attributes: [:id, :text, :header, :button_text, :next_question, :is_root, :flowchart_id, :flowchart_node_id, :deleted, :_destroy,
+          flowchart_icon_helpers_attributes: [:id, :flowchart_icon_id, :flowchart_node_id, :_destroy]]]
       end
     end
 
@@ -27,7 +29,7 @@ ActiveAdmin.register Flowchart do
       f.input :description, label: "Description"
       f.hidden_field :height, value: 1
       # f.input :height, label: "Height"
-      # f.input :root_id, label: "Root Node ID" # make it so that this works with the nodes table?
+      f.input :root_id, label: "Root Node ID" # make it so that this works with the nodes table?
     end
 
     f.inputs "Flowchart Nodes" do
@@ -39,6 +41,9 @@ ActiveAdmin.register Flowchart do
         n.input :button_text, label: "Button Text"
         n.input :parent, label: "Parent Node", as: :select, collection: FlowchartNode.select(:header).where(flowchart_id: f.object.id)
         n.input :is_root, label: "Root Node?"
+        n.has_many :flowchart_icon_helpers, new_record: 'Add Icon', allow_destroy: true, heading: "Node Icons" do |i|
+          i.input :flowchart_icon, label: "Icon ID"
+        end
       end
     end
     f.actions

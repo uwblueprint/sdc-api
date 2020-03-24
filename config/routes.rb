@@ -20,16 +20,6 @@ Rails.application.routes.draw do
   #            defaults: { format: :json }
   get 'flowchart_icon_helper/new'
   get 'flowchart_icon/new'
-  devise_for :users,
-             path: '',
-             path_names: {
-               sign_in: 'login',
-               sign_out: 'logout'
-             },
-             controllers: {
-               sessions: 'sessions'
-             },
-             defaults: { format: :json }
   get '/questions', to: 'questions#index'
 
   get '/flowchart/:id', to: 'flowchart#serialized_flowchart_by_id'

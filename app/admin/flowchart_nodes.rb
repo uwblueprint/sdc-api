@@ -5,14 +5,29 @@ ActiveAdmin.register FlowchartNode do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  belongs_to :flowchart, optional: true
+  belongs_to :flowchart
   # belongs_to :flowchart_node_id, class_name: 'FlowchartNode', optional: true
   # belongs_to :parent, class_name: 'FlowchartNode', optional: true
   permit_params :text, :header, :button_text, :next_question, :is_root, :flowchart_id, :deleted, :flowchart_node_id
-  # navigation_menu :flowchart
-  #
-  # or
-  #
+  # navigation_menu :default
+  # menu false
+  
+  form do |f|
+    f.inputs "Node Details" do
+      f.input :id, label: "Node ID", input_html: { disabled: true }
+      f.input :header, label: "Node Title"
+      f.input :text, label: "Node Text"
+      f.input :next_question, label: "Node Question"
+      f.input :button_text, label: "Button Text"
+      f.input :parent, label: "Parent Node", as: :select, collection: FlowchartNode.select(:header).where(flowchart_id: f.object.flowchart_id)
+      f.input :is_root, label: "Root Node?"
+      f.has_many :flowchart_icon_helpers, new_record: 'Add Icon', allow_destroy: true, heading: "Icons" do |i|
+        i.input :flowchart_icon, label: "Icon ID"
+      end
+    end
+    f.actions
+  end
+
   # permit_params do
   #   permitted = [:text, :header, :button_text, :next_question, :child_id, :sibling_id, :is_root, :flowchart_id, :deleted, :flowchart_node_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
@@ -20,10 +35,3 @@ ActiveAdmin.register FlowchartNode do
   # end
   
 end
-
-# TODO
-# -submitting flowchart form doesn't work?
-# -submitting flowchart node form doesn't update parent - dependency/nested/permitted params issue probably
-# -make main page look nicer
-# -display nodes with flowchart on view? and/or add nodes to menu/sidebar
-# -update flowchart node form? (customize)
