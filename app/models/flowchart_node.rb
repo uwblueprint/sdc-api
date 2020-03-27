@@ -5,6 +5,7 @@
 # Table name: flowchart_nodes
 #
 #  id                :bigint           not null, primary key
+#  breadcrumb_title  :string
 #  button_text       :string
 #  deleted           :boolean          default(FALSE), not null
 #  header            :string           not null
