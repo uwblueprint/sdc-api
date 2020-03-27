@@ -24,25 +24,26 @@ ActiveAdmin.register Flowchart do
     end
 
   form do |f|
+    
     f.inputs "Details" do
       f.input :title, label: "Flowchart title"
       f.input :description, label: "Description"
       f.hidden_field :height, value: 1
-      # f.input :height, label: "Height"
-      f.input :root_id, label: "Root Node ID" # make it so that this works with the nodes table?
+      f.input :root_id, label: "Root Node ID"
     end
-
-    f.inputs "Flowchart Nodes" do
-      f.has_many :flowchart_nodes, new_record: true, allow_destroy: true, heading: false do |n|
-        n.input :id, label: "Node ID", input_html: { disabled: true }
-        n.input :header, label: "Node Title"
-        n.input :text, label: "Node Text"
-        n.input :next_question, label: "Node Question"
-        n.input :button_text, label: "Button Text"
-        n.input :parent, label: "Parent Node", as: :select, collection: FlowchartNode.select(:header).where(flowchart_id: f.object.id)
-        n.input :is_root, label: "Root Node?"
-        n.has_many :flowchart_icon_helpers, new_record: 'Add Icon', allow_destroy: true, heading: "Node Icons" do |i|
-          i.input :flowchart_icon, label: "Icon ID"
+    if !f.object.new_record?  
+      f.inputs "Flowchart Nodes" do
+        f.has_many :flowchart_nodes, new_record: true, allow_destroy: true, heading: false do |n|
+          n.input :id, label: "Node ID", input_html: { disabled: true }
+          n.input :header, label: "Node Title"
+          n.input :text, label: "Node Text"
+          n.input :next_question, label: "Node Question"
+          n.input :button_text, label: "Button Text"
+          n.input :parent, label: "Parent Node", as: :select, collection: FlowchartNode.select(:header).where(flowchart_id: f.object.id)
+          n.input :is_root, label: "Root Node?"
+          n.has_many :flowchart_icon_helpers, new_record: 'Add Icon', allow_destroy: true, heading: "Node Icons" do |i|
+            i.input :flowchart_icon, label: "Icon ID"
+          end
         end
       end
     end
