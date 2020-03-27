@@ -130,11 +130,12 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'is_root' => false,
           'is_leaf' => false,
           'flowchart_id' => 100,
+          'flowchart_icons' => [],
           'deleted' => false
         }
         post :create, params: @params
         res = JSON.parse(response.body)
-        expected['flowchart_icons'] = []
+        # expected['flowchart_icons'] = []
         res.delete('updated_at')
         res.delete('created_at')
         res.delete('id')
@@ -153,6 +154,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'is_leaf' => false,
           'is_root' => false,
           'flowchart_id' => 100,
+          'flowchart_icons' => [],
           'deleted' => false
         }
         @params[:prev_id] = 4
@@ -301,6 +303,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'is_root' => false,
             'is_leaf' => false,
             'flowchart_id' => 100,
+            'flowchart_icons' => [],
             'deleted' => false,
           },
           'new_b' => {
@@ -315,6 +318,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'is_root' => false,
             'is_leaf' => false,
             'flowchart_id' => 100,
+            'flowchart_icons' => [],
             'deleted' => false
           }
         }
@@ -332,7 +336,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
         res['new_a'].delete('created_at')
         res['new_b'].delete('updated_at')
         res['new_b'].delete('created_at')
-        @expected['flowchart_icons'] = []
+        # @expected['flowchart_icons'] = []
         expect(res).to eq(@expected)
       end
 
