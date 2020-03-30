@@ -18,8 +18,7 @@ class FlowchartNodeController < ApplicationController
 
   def show
     node = FlowchartNode.find(params[:id])
-    icons = node.flowchart_icons
-    render json: { node: node, icons: icons }
+    render json: { node: node }
   end
 
   def parent

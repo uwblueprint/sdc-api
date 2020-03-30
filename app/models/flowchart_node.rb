@@ -5,6 +5,7 @@
 # Table name: flowchart_nodes
 #
 #  id                :bigint           not null, primary key
+#  breadcrumb_title  :string
 #  button_text       :string
 #  deleted           :boolean          default(FALSE), not null
 #  header            :string           not null
@@ -108,5 +109,9 @@ class FlowchartNode < ApplicationRecord
 
   def display_name
     header
+  end
+  
+  def as_json(_options = {})
+    super(include: :flowchart_icons)
   end
 end
