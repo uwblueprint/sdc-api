@@ -123,6 +123,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'text' => 'mock text',
           'header' => 'mock header',
           'flowchart_node_id' => 4,
+          'breadcrumb_title' => nil,
           'button_text' => 'mock button text',
           'next_question' => 'mock next question',
           'child_id' => nil,
@@ -146,6 +147,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
         expected = {
           'text' => 'mock text',
           'header' => 'mock header',
+          'breadcrumb_title' => nil,
           'button_text' => 'mock button text',
           'flowchart_node_id' => 4,
           'next_question' => 'mock next question',
@@ -294,6 +296,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'new_a' => {
             'id' => 3,
             'text' => 'd',
+            'breadcrumb_title' => nil,
             'header' => 'dd',
             'flowchart_node_id' => nil,
             'button_text' => 'ddd',
@@ -309,6 +312,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'new_b' => {
             'id' => 4,
             'text' => 'c',
+            'breadcrumb_title' => nil,
             'header' => 'cc',
             'flowchart_node_id' => nil,
             'button_text' => 'ccc',

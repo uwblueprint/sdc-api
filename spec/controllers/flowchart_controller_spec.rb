@@ -187,6 +187,7 @@ RSpec.describe FlowchartController, type: :controller do
         'flowchartnodes': {
           "1": {
             'button_text' => nil,
+            'breadcrumb_title' => nil,
             'flowchart_node_id' => nil,
             'flowchart_icons' => [],
             'child_id' => 10,
@@ -202,6 +203,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "10": {
             'button_text' => nil,
+            'breadcrumb_title' => nil,
             'flowchart_node_id' => nil,
             'flowchart_icons' => [],
             'child_id' => 7,
@@ -217,6 +219,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "2": {
             'button_text' => nil,
+            'breadcrumb_title' => nil,
             'child_id' => nil,
             'flowchart_node_id' => nil,
             'flowchart_icons' => [],
@@ -232,6 +235,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "3": {
             'button_text' => nil,
+            'breadcrumb_title' => nil,
             'flowchart_node_id' => nil,
             'flowchart_icons' => [],
             'child_id' => nil,
@@ -247,6 +251,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "4": {
             'button_text' => nil,
+            'breadcrumb_title' => nil,
             'flowchart_node_id' => nil,
             'flowchart_icons' => [],
             'child_id' => nil,
@@ -262,6 +267,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "5": {
             'button_text' => nil,
+            'breadcrumb_title' => nil,
             'flowchart_node_id' => nil,
             'flowchart_icons' => [],
             'child_id' => nil,
@@ -276,6 +282,7 @@ RSpec.describe FlowchartController, type: :controller do
             'text' => 'm3'
           },
           "6": {
+            'breadcrumb_title' => nil,
             'button_text' => nil,
             'flowchart_node_id' => nil,
             'flowchart_icons' => [],
@@ -292,6 +299,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "7": {
             'button_text' => nil,
+            'breadcrumb_title' => nil,
             'flowchart_node_id' => nil,
             'flowchart_icons' => [],
             'child_id' => 2,
@@ -307,6 +315,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "8": {
             'button_text' => nil,
+            'breadcrumb_title' => nil,
             'flowchart_node_id' => nil,
             'flowchart_icons' => [],
             'child_id' => 5,
@@ -322,6 +331,7 @@ RSpec.describe FlowchartController, type: :controller do
           },
           "9": {
             'button_text' => nil,
+            'breadcrumb_title' => nil,
             'flowchart_node_id' => nil,
             'flowchart_icons' => [],
             'child_id' => 6,
