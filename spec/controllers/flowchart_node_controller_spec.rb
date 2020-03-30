@@ -202,7 +202,6 @@ RSpec.describe FlowchartNodeController, type: :controller do
         get :show, params: { id: 1 }
         expected_node = {}
         expected_node['node'] = @node1.as_json
-        expected_node['flowchart_icons'] = []
         expect(response.body).to eq(expected_node.to_json)
       end
     end
