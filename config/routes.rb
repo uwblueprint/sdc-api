@@ -8,16 +8,6 @@ Rails.application.routes.draw do
       resources :flowchart_nodes
     end
   end
-  # devise_for :users,
-  #            path: '',
-  #            path_names: {
-  #              sign_in: 'login',
-  #              sign_out: 'logout'
-  #            },
-  #            controllers: {
-  #              sessions: 'sessions'
-  #            },
-  #            defaults: { format: :json }
   get 'flowchart_icon_helper/new'
   get 'flowchart_icon/new'
   get '/questions', to: 'questions#index'
