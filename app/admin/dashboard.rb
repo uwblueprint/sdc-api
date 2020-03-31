@@ -8,16 +8,16 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel 'Recent Flowcharts' do
           table_for Flowchart.order('id').limit(10) do
-            column('Title') { |f| f.title }
-            column('Description') { |f| f.description }
+            column('Title', &:title)
+            column('Description', &:description)
           end
         end
       end
       column do
         panel 'Recent Icons' do
           table_for FlowchartIcon.order('id').limit(10) do
-            column('ID') { |icon| icon.id }
-            column('URL') { |icon| icon.url }
+            column('ID', &:id)
+            column('URL', &:url)
           end
         end
       end
@@ -25,7 +25,7 @@ ActiveAdmin.register_page 'Dashboard' do
     columns do
       column do
         panel 'Info' do
-          para 'Welcome to ActiveAdmin!'
+          para 'Welcome to the admin dashboard for SDC flowcharts!'
         end
       end
     end
