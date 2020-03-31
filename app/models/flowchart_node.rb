@@ -39,7 +39,7 @@ class FlowchartNode < ApplicationRecord
   belongs_to :flowchart
   belongs_to :parent, class_name: 'FlowchartNode', optional: true, foreign_key: 'flowchart_node_id'
   has_many :flowchart_icon_helpers
-  accepts_nested_attributes_for :flowchart_icon_helpers, :allow_destroy => true
+  accepts_nested_attributes_for :flowchart_icon_helpers, allow_destroy: true
   has_many :flowchart_icons, through: :flowchart_icon_helpers
   validates :text, presence: true
   validates :header, presence: true
@@ -110,7 +110,7 @@ class FlowchartNode < ApplicationRecord
   def display_name
     header
   end
-  
+
   def as_json(_options = {})
     super(include: :flowchart_icons)
   end
