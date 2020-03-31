@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  namespace :admin do
+    resources :flowcharts do
+      resources :flowchart_nodes
+    end
+  end
   get 'flowchart_icon_helper/new'
   get 'flowchart_icon/new'
-  devise_for :users,
-             path: '',
-             path_names: {
-               sign_in: 'login',
-               sign_out: 'logout'
-             },
-             controllers: {
-               sessions: 'sessions'
-             },
-             defaults: { format: :json }
   get '/questions', to: 'questions#index'
 
   get '/flowchart/:id', to: 'flowchart#serialized_flowchart_by_id'
