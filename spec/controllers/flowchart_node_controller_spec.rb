@@ -123,6 +123,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'text' => 'mock text',
           'header' => 'mock header',
           'flowchart_node_id' => 4,
+          'breadcrumb_title' => nil,
           'button_text' => 'mock button text',
           'next_question' => 'mock next question',
           'child_id' => nil,
@@ -137,13 +138,16 @@ RSpec.describe FlowchartNodeController, type: :controller do
         res.delete('updated_at')
         res.delete('created_at')
         res.delete('id')
-        expect(res).to eq(expected)
+        expected_node = expected.as_json
+        expected_node['flowchart_icons'] = []
+        expect(res).to eq(expected_node)
       end
 
       it 'saves the new node to the database' do
         expected = {
           'text' => 'mock text',
           'header' => 'mock header',
+          'breadcrumb_title' => nil,
           'button_text' => 'mock button text',
           'flowchart_node_id' => 4,
           'next_question' => 'mock next question',
@@ -158,7 +162,8 @@ RSpec.describe FlowchartNodeController, type: :controller do
         post :create, params: @params
         res = JSON.parse(response.body)
         new_node = FlowchartNode.find(res['id'])
-        expect(new_node.attributes.except(*@exclude_keys, 'id')).to eq(expected)
+        puts new_node
+        expect(new_node.attributes.except(*@exclude_keys, 'id')).to eq(expected.except('flowchart_icons'))
       end
     end
 
@@ -199,7 +204,6 @@ RSpec.describe FlowchartNodeController, type: :controller do
         get :show, params: { id: 1 }
         expected_node = {}
         expected_node['node'] = @node1.as_json
-        expected_node['icons'] = []
         expect(response.body).to eq(expected_node.to_json)
       end
     end
@@ -220,7 +224,8 @@ RSpec.describe FlowchartNodeController, type: :controller do
           text: 'mock text',
           header: 'mock header',
           button_text: 'mock button text',
-          next_question: 'mock next question'
+          next_question: 'mock next question',
+          flowchart_icons: []
         }
       }
     end
@@ -230,6 +235,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
         @params[:id] = 1
 
         @expected = @node1
+        @expected.flowchart_icons = []
         @expected.text = 'mock text'
         @expected.header = 'mock header'
         @expected.button_text = 'mock button text'
@@ -249,7 +255,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
 
       it 'renders the json of the updated node' do
         put :update, params: @params
-        expect(JSON.parse(response.body).except(*@exclude_keys)).to eq(@expected.attributes.except(*@exclude_keys))
+        expect(JSON.parse(response.body).except(*@exclude_keys).except('flowchart_icons')).to eq(@expected.attributes.except(*@exclude_keys))
       end
     end
 
@@ -290,6 +296,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
           'new_a' => {
             'id' => 3,
             'text' => 'd',
+            'breadcrumb_title' => nil,
             'header' => 'dd',
             'flowchart_node_id' => nil,
             'button_text' => 'ddd',
@@ -299,11 +306,13 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'is_root' => false,
             'is_leaf' => false,
             'flowchart_id' => 100,
+            'flowchart_icons' => [],
             'deleted' => false
           },
           'new_b' => {
             'id' => 4,
             'text' => 'c',
+            'breadcrumb_title' => nil,
             'header' => 'cc',
             'flowchart_node_id' => nil,
             'button_text' => 'ccc',
@@ -313,6 +322,7 @@ RSpec.describe FlowchartNodeController, type: :controller do
             'is_root' => false,
             'is_leaf' => false,
             'flowchart_id' => 100,
+            'flowchart_icons' => [],
             'deleted' => false
           }
         }
@@ -336,13 +346,13 @@ RSpec.describe FlowchartNodeController, type: :controller do
       it 'updates node A with the contents of node B in the database' do
         put :swap, params: @params
         node_a = FlowchartNode.find(3)
-        expect(node_a.attributes.except(*@exclude_keys)).to eq(@expected['new_a'])
+        expect(node_a.attributes.except(*@exclude_keys)).to eq(@expected['new_a'].except('flowchart_icons'))
       end
 
       it 'updates node B with the contents of node A in the database' do
         put :swap, params: @params
         node_b = FlowchartNode.find(4)
-        expect(node_b.attributes.except(*@exclude_keys)).to eq(@expected['new_b'])
+        expect(node_b.attributes.except(*@exclude_keys)).to eq(@expected['new_b'].except('flowchart_icons'))
       end
     end
 
