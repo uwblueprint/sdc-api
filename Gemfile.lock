@@ -178,7 +178,7 @@ GEM
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
     puma (3.12.1)
-    rack (2.0.7)
+    rack (2.2.2)
     rack-cors (1.0.5)
       rack (>= 1.6.0)
     rack-test (1.1.0)
