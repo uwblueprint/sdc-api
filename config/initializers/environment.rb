@@ -3,7 +3,9 @@
 # ENVIRONMENT VARIABLES
 
 # DEVELOPMENT
-unless Rails.env.production?
+if Rails.env.production?
+  ENV['SECRET_KEY_BASE'] = 'production-key'
+else
   ENV['DB_PASS_DEV'] = 'sdcdev'
   ENV['DB_USER_DEV'] = 'postgres'
   ENV['DB_NAME_DEV'] = 'sdc'
@@ -15,6 +17,4 @@ unless Rails.env.production?
   ENV['RAILS_MAX_THREADS_DEV'] = '5'
   ENV['CORS_ORIGIN'] = 'http://localhost:3000'
   ENV['DB_NAME_TEST'] = 'sdc_test'
-else
-  ENV['SECRET_KEY_BASE'] = 'production-key'
 end
