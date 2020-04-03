@@ -14,7 +14,7 @@ ActiveAdmin.register FlowchartNode do
 
   controller do
     def permitted_params
-      params.permit :authenticity_token, :commit, :_method, :flowchart_id, :id, 
+      params.permit :authenticity_token, :commit, :_method, :flowchart_id, :id,
                     flowchart_node: [:id, :text, :header, :breadcrumb_title, :next_question, :is_root, :flowchart_id, :flowchart_node_id, :is_leaf, :deleted, :flowchart_id, :button_text,
                                      flowchart_icon_helpers_attributes: %i[id flowchart_icon_id flowchart_node_id _destroy]]
     end
