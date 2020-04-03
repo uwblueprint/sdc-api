@@ -154,7 +154,7 @@ heroku container:push web
 Then release the image to your app:
 
 ```
-heroku container: release web
+heroku container:release web
 ```
 
 Then, to migrate the database into Heroku's Postgres container, run:
@@ -195,3 +195,22 @@ gem update --system
 bundle install
 ```
 This worked with Ruby 2.5.1 with `rbenv` on MacOS.
+
+**Database Errors in Production**
+
+Sometimes, the database in production may be not be working as expected. If reseeding or remigrating the data does not work, another (nuclear) option is to reset the database, which will drop it and reprovision it. Note that this deletes all the data from the database. 
+
+This can be done from the Heroku Postgres Dashboard or by using CLI:
+```
+heroku pg:reset DATABASE
+```
+After this, be sure to remigrate the database using:
+```
+heroku run rake db:migrate
+```
+
+
+
+
+
+
