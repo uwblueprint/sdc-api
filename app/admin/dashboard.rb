@@ -8,7 +8,7 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel 'Recent Flowcharts' do
           table_for Flowchart.order('id').limit(10) do
-            column('Title', &:title)
+            column('Title') { |f| link_to(f.title, admin_flowchart_path(f.id)) }
             column('Description', &:description)
           end
         end
@@ -16,7 +16,7 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel 'Recent Icons' do
           table_for FlowchartIcon.order('id').limit(10) do
-            column('ID', &:id)
+            column('ID') { |i| link_to(i.id, admin_flowchart_path(i.id)) }
             column('URL', &:url)
           end
         end
