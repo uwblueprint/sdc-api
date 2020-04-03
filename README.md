@@ -115,6 +115,69 @@ before_action :authenticate_user!
 rails s
 ```
 
+## Deployment
+
+#### Initial Deployment
+
+This app can be best deployed using Heroku. Currently, it is running [here](https://guarded-plains-51025.herokuapp.com). For a new deployment, begin by setting up Heroku account [here](https://heroku.com) and installing the Heroku CLI [here](https://devcenter.heroku.com/articles/heroku-cli).
+
+This app is deployed using the Docker Container Registry on Heroku. To learn more about the Docker Registry go [here](https://docs.docker.com/registry/). The documentation that informed this deployment methodology, can be found [here](https://devcenter.heroku.com/articles/container-registry-and-runtime). Consult it when troubleshooting.
+
+Before starting, ensure that the Docker Daemon is running.
+
+Begin by logging in:
+
+```
+heroku login
+```
+
+Inside the project folder, to create a new heroku project:
+
+```
+heroku create
+```
+
+This project uses a PostgreSQL database which will be provisioned using Heroku. This should be automatically provisioned when the app is first created, however, if it is not, consult the Heroku PostgreSQL docs [here](https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-heroku-postgres) to set it up. 
+
+Then, login to the Docker Container Registry:
+
+```
+heroku container:login
+```
+
+Build the image and push to Container Registry:
+
+```
+heroku container:push web
+```
+
+Then release the image to your app:
+
+```
+heroku container: release web
+```
+
+Then, to migrate the database into Heroku's Postgres container, run:
+
+```
+heroku run rake db:migrate
+```
+
+#### Subsequent Deployments:
+
+Subsequent deployments are much simpler, just run:
+
+```
+heroku container:push web
+heroku container: release web
+```
+
+Occaisionally, you may need to remigrate the database if data has been reseeded:
+
+```
+heroku run rake db:migrate
+```
+
 ## Troubleshooting
 **(Windows) Bundle Install Fails Due to pg?**
 Try the following:

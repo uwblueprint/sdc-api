@@ -21,7 +21,9 @@ require 'rails/test_unit/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-Dotenv::Railtie.load
+unless Rails.env.production?
+  Dotenv::Railtie.load
+end
 
 module SdcApi
   class Application < Rails::Application
@@ -37,7 +39,8 @@ module SdcApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
+    puts Rails.env
+    
     # Middleware for ActiveAdmin
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
@@ -46,7 +49,7 @@ module SdcApi
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins ENV['CORS_ORIGIN']
+        origins '*'
         resource(
           '*',
           headers: :any,
