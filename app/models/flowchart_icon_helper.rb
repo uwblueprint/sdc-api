@@ -19,4 +19,8 @@
 class FlowchartIconHelper < ApplicationRecord
   belongs_to :flowchart_node
   belongs_to :flowchart_icon
+
+  def display_name
+    id
+  end
 end
