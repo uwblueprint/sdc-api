@@ -40,7 +40,6 @@ module SdcApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     puts Rails.env
-    
     # Middleware for ActiveAdmin
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
