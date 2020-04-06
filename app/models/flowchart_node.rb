@@ -12,7 +12,7 @@
 #  is_leaf           :boolean          default(FALSE), not null
 #  is_root           :boolean          not null
 #  next_question     :string
-#  text              :string           not null
+#  text              :text             not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  child_id          :bigint
@@ -41,7 +41,6 @@ class FlowchartNode < ApplicationRecord
   has_many :flowchart_icon_helpers
   accepts_nested_attributes_for :flowchart_icon_helpers, allow_destroy: true
   has_many :flowchart_icons, through: :flowchart_icon_helpers
-  validates :text, presence: true
   validates :header, presence: true
   validates :button_text, exclusion: { in: [''] }
   validates :next_question, exclusion: { in: [''] }
