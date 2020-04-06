@@ -86,9 +86,6 @@ when 'development'
 
   # set foreign keys
   flowchart[:root_id] = node1.id
-  node1[:child_id] = node2.id
-  node2[:child_id] = node3.id
-  node2[:child_id] = node4.id
 
   # write changes
   flowchart.save!
@@ -101,4 +98,4 @@ when 'development'
   node5.save!
   node6.save!
 end
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
