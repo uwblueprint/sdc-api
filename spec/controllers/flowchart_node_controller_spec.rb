@@ -179,18 +179,18 @@ RSpec.describe FlowchartNodeController, type: :controller do
       end
     end
 
-    context 'when given an invalid body' do
-      before(:each) do
-        @params[:prev_id] = 3
-        @params[:node][:text] = nil
-      end
-
-      it 'throws a record invalid error' do
-        expect do
-          post :create, params: @params
-        end.to raise_error(ActiveRecord::RecordInvalid)
-      end
-    end
+    # context 'when given an invalid body' do
+    #   before(:each) do
+    #     @params[:prev_id] = 3
+    #     @params[:node][:text] = nil
+    #   end
+    #
+    #   it 'throws a record invalid error' do
+    #     expect do
+    #       post :create, params: @params
+    #     end.to raise_error(ActiveRecord::RecordInvalid)
+    #   end
+    # end
   end
 
   describe '.show' do
@@ -271,18 +271,18 @@ RSpec.describe FlowchartNodeController, type: :controller do
       end
     end
 
-    context 'when given an invalid body' do
-      before(:each) do
-        @params[:id] = 1
-        @params[:node][:text] = nil
-      end
-
-      it 'throws a record invalid error' do
-        expect do
-          put :update, params: @params
-        end.to raise_error(ActiveRecord::RecordInvalid)
-      end
-    end
+    # context 'when given an invalid body' do
+    #   before(:each) do
+    #     @params[:id] = 1
+    #     @params[:node][:text] = nil
+    #   end
+    #
+    #   it 'throws a record invalid error' do
+    #     expect do
+    #       put :update, params: @params
+    #     end.to raise_error(ActiveRecord::RecordInvalid)
+    #   end
+    # end
   end
 
   describe '.swap' do
