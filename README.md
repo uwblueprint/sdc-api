@@ -137,6 +137,14 @@ Inside the project folder, to create a new heroku project:
 heroku create
 ```
 
+OR, if you have an existing heroku project (which this project currently does):
+
+```
+heroku git:remote -a <app name>
+```
+
+The current app name is `warm-hollows-93227`.
+
 This project uses a PostgreSQL database which will be provisioned using Heroku. This should be automatically provisioned when the app is first created, however, if it is not, consult the Heroku PostgreSQL docs [here](https://devcenter.heroku.com/articles/heroku-postgresql#provisioning-heroku-postgres) to set it up. 
 
 Then, login to the Docker Container Registry:
@@ -169,7 +177,7 @@ Subsequent deployments are much simpler, just run:
 
 ```
 heroku container:push web
-heroku container: release web
+heroku container:release web
 ```
 
 Occaisionally, you may need to remigrate the database if data has been reseeded:
